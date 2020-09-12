@@ -1,0 +1,238 @@
+<script src="admin/assets/scripts/offer.js"></script>
+
+<div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header"><br/> <br/>
+
+        <h1 id="serviceTitle"></h1>
+        <br/>
+
+    </section>
+    <div id="view_consolidate_offer" >
+        <!-- jQuery 2.2.0 -->
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Offer List</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body" id="view-consolidateoffer-table">
+                    <table id="display_consolidateoffer_table" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Discount</th>
+                        </tr>
+                        </thead>
+
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+
+    <div id="add_service_hotel" >
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Add Offer</h3>
+                </div>
+                <div class="box-body">
+                    <form id="add-offer" method="post">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="hidden" class="form-control" placeholder="Enter Service ID" name="serviceId"
+                                   id="serviceId">
+                            <input type="text" class="form-control" placeholder="Enter Name" name="offerName"
+                                   id="offerName">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" class="form-control" placeholder="Enter Description" name="offerDesc"
+                                   id="offerDesc">
+                        </div>
+                        <div class="form-group">
+                            <label>Discount</label>
+                            <input type="text" class="form-control" placeholder="Enter Discount" name="offerDiscount"
+                                   id="offerDiscount">
+                        </div>
+						<div class="form-group">
+                            <button type="button" style="margin-top: 10px;" data-toggle="modal" data-target="#myModal" id="select_icon">
+                                Offer Icon
+                            </button>
+                            <div id="selectedImage"></div>
+                            <input type="hidden" id="offer_thumbnail" name="offer_thumbnail">
+                        </div>
+                        <!-- /.form group -->
+                        <div class="box-footer">
+                            <input type="hidden" id="baseurl" name="baseurl" value="/">
+                            <button type="submit" id="addOffer" class="btn btn-primary">
+                                Add
+                            </button>
+                        </div>
+                    </form>
+                </div>
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Choose Offer Icon</h4>
+                            </div>
+                            <div class="modal-body" id="vidualContent_div">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="cancel_ofr_vc_modal" class="btn btn-default" data-dismiss="modal">
+                                    Cancel
+                                </button>
+                                <button type="button" id="save_ofr_vc_modal" class="btn btn-primary" data-dismiss="modal">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- jQuery 2.2.0 -->
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Offer List</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body" id="offer-data-table">
+                    <table id="display_offer_table" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Discount</th>
+                        </tr>
+                        </thead>
+
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+</div>
+<!--<script src="admin/assets/scripts/offer.js"></script>-->
+<script>
+    // $(function () {
+    var serviceId = window.localStorage.getItem("offerServiceId");
+    var serviceName = window.localStorage.getItem("offerServiceName");
+    var offerShowType = window.localStorage.getItem("offerShowType");
+    $('#sign_out_link').click(function () {
+        document.getElementById("signout-dropdown-menu").style.display = "block";
+        $('.dropdown-toggle').dropdown();
+    });
+
+    $(document).click(function () {
+        $("#signout-dropdown-menu").hide();
+    });
+
+    //$( document ).ready(function() {
+    //alert('ready');
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "2000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+	$("#cancel_ofr_vc_modal").click(function () {
+        $('div[id^="selectedImage"]').html('');
+        $("li[id^='vc_']").css('border', "1px solid #ddd");
+        $('#offer_thumbnail').val('');
+    });
+	$("#save_ofr_vc_modal").click(function(){
+		$('#offer_thumbnail-error').hide();
+    });
+    $('#add-offer').validate({
+        errorElement: 'span',
+        ignore: [],
+        errorPlacement: function(error, element) {
+            switch (element.attr("name")) {
+                case 'offer_thumbnail':
+                    error.insertAfter($("#select_icon"));
+                    break;
+                default:
+                    error.insertAfter(element);
+            }
+        },
+		rules: {
+            offerName: {
+            	required: true,
+            	noSpace: true,
+              alphanumericWithSpace:true
+            },
+            offerDesc: {
+                maxlength: 500,
+                required: true,
+                noSpace: true,
+                alphanumericWithSpace: true
+            },
+            offerDiscount:{
+            	required: true,
+            	noSpace: true
+            },
+			offer_thumbnail:"required"
+        },
+        messages: {
+            offerName: {
+              required: "Required !",
+            },
+            offerDesc: {
+                required: "Required !",
+                maxlength: "Description too long!",
+            },
+            offerDiscount: "Required !",
+			offer_thumbnail: "Required !"
+        },
+        submitHandler: function (form) {
+            addOffer();
+        }
+    });
+    if (offerShowType == 'add') {
+        $('#serviceTitle').text(serviceName);
+        $('#serviceId').val(serviceId);
+        getOfferByServiceId(serviceId);
+        document.getElementById('add_service_hotel').style.display = 'block';
+        document.getElementById('view_consolidate_offer').style.display = 'none';
+		getIconsForOffer();
+    } else {
+        $('#serviceTitle').text("Offers");
+        $('#serviceId').val(serviceId);
+        getOfferByHotelCodeInOffer();
+        document.getElementById('add_service_hotel').style.display = 'none';
+        document.getElementById('view_consolidate_offer').style.display = 'block';
+    }
+
+
+    //});
+    // });
+</script>
+<script src="admin/assets/scripts/offer.js"></script>

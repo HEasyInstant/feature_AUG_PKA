@@ -1,0 +1,174 @@
+<script src="/admin/assets/scripts/room.js"></script>
+<div onload="loadft()">
+	<section class="content-header"><br/> <br/>
+
+		<h1>
+			Room
+			<!--<small>preview of simple tables</small>-->
+		</h1> <br/>
+
+	</section>
+
+	<div class="col-md-6">
+		<div class="box box-primary">
+			<div class="box-header">
+				<h3 class="box-title" id="dept-form-title">Add Room</h3>
+			</div>
+			<div class="box-body">
+				<form id="add-room" method="post">
+					<div class="form-group">
+						<label>Hotel Code</label>
+						<input type="text" class="form-control" name="hotelCode" id="hotelCode" autocomplete="off"
+							   readonly="readonly" placeholder="Hotel Code">
+					</div>
+					<div class="form-group">
+						<label>Room Number*</label>
+						<input type="text" class="form-control" placeholder="Enter Room Number" name="roomNumber"
+							   id="roomNumber" style="text-transform:uppercase">
+					</div>
+					<div class="form-group">
+						<label>Room Description</label>
+                        <textarea class="form-control" placeholder="Enter Room Description" rows="3"
+                            name="roomDes" id="roomDes"></textarea>
+                    </div>
+                    <div class="form-group">
+						<label>Room Type</label>
+						<input type="text" class="form-control" placeholder="Enter Room Type" name="roomType"
+							   id="roomType" style="text-transform:uppercase">
+                    </div>
+                    <div class="form-group">
+						<label>Which Floor?</label>
+						<input type="text" class="form-control" placeholder="Enter Room Floor" name="roomFloor"
+							   id="roomFloor" style="text-transform:uppercase">
+					</div>
+					<div class="box-footer">
+						<input type="hidden" id="baseurl" name="baseurl" value="/">
+						<button type="submit" id="saveRoom" class="btn btn-primary">
+							Add
+						</button>
+					</div>
+				</form>
+				<form id="update-room" method="post" style="display:none;">
+					<div class="form-group">
+						<label>Hotel Code</label>
+						<input type="text" class="form-control" name="updateHotelCode" id="updateHotelCode" autocomplete="off"
+							   readonly="readonly" placeholder="Hotel Code">
+					</div>
+					<div class="form-group">
+                        <label>Room Number*</label>
+                        <input type="text" class="form-control" name="updateRoomNumber" id="updateRoomNumber" autocomplete="off"
+							   readonly="readonly" placeholder="Room Number">
+                    </div>
+                    
+                    <div class="form-group">
+						<label>Room Description</label>
+                        <textarea class="form-control" placeholder="Room Description" rows="3"
+                            name="updateRoomDes" id="updateRoomDes"></textarea>
+                    </div>
+                    <div class="form-group">
+						<label>Room Type</label>
+						<input type="text" class="form-control" placeholder="Room Type" name="updateRoomType"
+							   id="updateRoomType" style="text-transform:uppercase">
+                    </div>
+                    <div class="form-group">
+						<label>Which Floor?</label>
+						<input type="text" class="form-control" placeholder="Room Floor" name="updateRoomFloor"
+							   id="updateRoomFloor" style="text-transform:uppercase">
+					</div>
+				
+					<div class="box-footer">
+						<input type="hidden" id="baseurl" name="baseurl" value="/">
+						<button type="submit" id="updateRoom" class="btn btn-primary">
+							Update
+						</button>
+					</div>
+				</form>
+			</div>
+			<!-- /.box-body -->
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Room List</h3>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body" id="display_rooms">
+
+			</div>
+			<!-- /.box-body -->
+		</div>
+	</div>
+</div>
+<!--<script src="/admin/assets/scripts/staff.js"></script>
+<script src="/admin/assets/scripts/dept.js"></script>-->
+<script type="text/javascript">
+	//	(function ($) {
+	toastr.options = {
+		"closeButton": true,
+		"debug": false,
+		"newestOnTop": false,
+		"progressBar": false,
+		"positionClass": "toast-bottom-right",
+		"preventDuplicates": false,
+		"onclick": null,
+		"showDuration": "300",
+		"hideDuration": "1000",
+		"timeOut": "2000",
+		"extendedTimeOut": "1000",
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut"
+	};
+
+	$('#sign_out_link').click(function () {
+		document.getElementById("signout-dropdown-menu").style.display = "block";
+		$('.dropdown-toggle').dropdown();
+	});
+
+	$(document).click(function () {
+		$("#signout-dropdown-menu").hide();
+	});
+
+	$("#signout-dropdown-menu").click(function (e) {
+		e.stopPropagation();
+	});
+
+
+	$('#add-room').validate({
+		errorElement: 'span',
+		rules: {
+			roomNumber: {
+				required: true,
+				noSpace: true,
+				alphanumericWithSpace: true
+			}
+		},
+		messages: {
+			roomNumber: {
+				required: "Required !"
+			}
+		},
+		submitHandler: function (form) {
+			addRoom();
+		}
+	});
+	$('#update-room').validate({
+		errorElement: 'span',
+		rules: {
+			updateRoomNumber: {
+				required: true,
+				noSpace: true
+			}
+		},
+		messages: {
+			updateDeptName: "Required !"
+		},
+		submitHandler: function (form) {
+			updateRoom();
+		}
+	});
+	//})(jQuery);
+</script>
