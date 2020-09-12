@@ -1,0 +1,221 @@
+<script src="admin/assets/scripts/guest.js"></script>
+<style>
+    .example-modal .modal {
+    <!-- position: relative;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    display: block;
+    z-index: 1;
+    --> position: absolute;
+        top: 25%;
+        left: 31%;
+        height: 320px;
+        width: 35%;
+        display: block;
+        z-index: 1000;
+    }
+
+    .example-modal .modal {
+        background: #DCDCDC;
+    }
+</style>
+
+<div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <br/>
+        <br/>
+
+        <h1> Guest List <!--<small>preview of simple tables</small>--></h1>
+        <br/>
+
+    </section>
+<div class="box-tools pull-right">
+               <span class="label label-danger" id="send_to_all" style="cursor:pointer">Send Notification</span>
+              <button type="button" class="btn btn-box-tool"></button>
+            </div>
+    <div class="col-lg-12">
+    	
+        <div class="box box-danger">
+            <div class="box-header">
+                <h3 class="box-title">All Checked In Guest</h3>
+            </div>
+            
+            <div class="box-body no-padding" id="guest_list">
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div id="notification-div" class="example-modal col-lg-12" style="display:none">
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" style="margin-top:15px;width:100%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" id="closeNotify" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Send Notification</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="msg_title" class="col-sm-2 control-label">Title</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="hidden" class="form-control" name="guestid" id="guestid">
+                                        <input type="text" class="form-control" id="msg_title"
+                                               placeholder="Enter Title">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="messages" class="col-sm-2 control-label">Message</label>
+
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control custom-control" id="messages" required="required" rows="5" placeholder="Enter Message" 
+                                    style="resize:none"></textarea>
+                                        <div class="modal-footer">
+                                            <button type="button" id="closebtn"
+                                            class="btn btn-default pull-left" data-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="button" id="pushMsg" class="btn btn-primary">
+                                                Send
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    </div>
+
+</div>
+
+<script>
+    //$(function () {
+
+        var hotelId = window.localStorage.getItem("hotelCodeVal");
+        //var token = window.localStorage.getItem("token");
+        var url = '/api/guest/getCheckedInGuests?access_token=' + window.localStorage.getItem("token");
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: url,
+            data: '{"hotelId":"' + hotelId + '"}',
+            success: function (json) {
+                console.log('browser json' + json)
+                try {
+                    var obj = json;
+                    var guest_img;
+                    var guest_name_num;
+                    var userList = "<ul class='users-list clearfix'>";
+                    if (obj['success'] == true) {
+                        var len = obj['guests'].length;
+                        for (var i = len - 1; i >= 0; i--) {
+							var status = obj['guests'][i]['status'];
+                            guest_name_num= obj['guests'][i]['name']+"&nbsp;&nbsp;#"+ obj['guests'][i]['roomNumber'];
+                            if (obj['guests'][i]['isMale'] == "true") {
+                                guest_img = 'admin/assets/dist/img/user1-128x128.jpg';
+                            } else {
+                                guest_img = 'admin/assets/dist/img/user3-128x128.jpg';
+                            }
+                          
+							if(status == 'ONLINE'){
+								userList = userList +
+								'<li>'+
+									"<img src=" + guest_img + " alt='User Image' class='context-menu-one' id='"+obj['guests'][i]['guestCode']+"' name='"+guest_name_num+"'>"+ 
+									"<a class='users-list-name' href='#'>" + obj['guests'][i]['name'] + "</a>"+ 
+									"<span class='users-list-date'><b>RM #:" + obj['guests'][i]['roomNumber'] + "</b></span></n>"+ 
+									"<span class='users-list-date'><i class='fa fa-circle text-success'></i><b> "+status+"</b></a></span>"+
+                                    "<a class='users-list-name' href='#' onclick='view_order_summary("+obj['guests'][i]['guestCode']+")'>order summary</a>"+ 
+								'</li>';
+							}else{
+								userList = userList +
+								'<li>'+
+									"<img src=" + guest_img + " alt='User Image' class='context-menu-one' id='"+obj['guests'][i]['guestCode']+"' name='"+guest_name_num+"'>"+ 
+									"<a class='users-list-name' href='#'>" + obj['guests'][i]['name'] + "</a>"+ 
+									"<span class='users-list-date'><b>RM #:" + obj['guests'][i]['roomNumber'] + "</b></span></n>"+ 
+									"<span class='users-list-date'><i class='fa fa-circle text-danger'></i><b> "+status+"</b></a></span>"+
+                                    "<a class='users-list-name' href='#' onclick='view_order_summary("+obj['guests'][i]['guestCode']+")'>order summary</a>"+
+								'</li>';
+							}
+                        }
+                        document.getElementById('guest_list').innerHTML = "</ul>" + userList;
+
+                    } else {
+                        var userList = "<ul class='users-list clearfix'> ";
+                        document.getElementById('guest_list').innerHTML = "</ul>" + userList;
+
+                    }
+                } catch (e) {
+                   // alert("not able to fetch checked in cust..  ");
+                }
+            },
+            error: function () {
+               // alert("not able to fetch checked in cust..  ");
+            }
+        });
+        //--Code for SignOut-----
+
+        $('#sign_out_link').click(function () {
+            document.getElementById("signout-dropdown-menu").style.display = "block";
+            $('.dropdown-toggle').dropdown();
+        });
+
+        $(document).click(function () {
+            $("#signout-dropdown-menu").hide();
+        });
+
+        $("#signout-dropdown-menu"
+        ).click(function (e) {
+            e.stopPropagation();
+        });
+        $("#closebtn").click(function () {
+            $('#msg_title').val('');
+            $('#messages').val('');
+            document.getElementById("notification-div").style.display = "none"
+            ;
+        });
+        $("#closeNotify").click(function () {
+            $('#msg_title').val('');
+            $('#messages').val('');
+            document.getElementById("notification-div").style.display = "none";
+        });
+        $('#pushMsg').on('click', function (e) {
+            if (!$.trim($('#msg_title').val())) {
+
+                $("#msg_title").focus();
+                return;
+            } else if (!$.trim($('#messages').val())) {
+                $("#messages").focus();
+                return;
+            } else {
+                sendPushMsgtoClient();
+            }
+        });
+        $("#send_to_all").click(function() {
+		document.getElementById("notification-div").style.display = "block";
+		$('#msg_title').val('');
+		$('#messages').val('');
+		$('.modal-title').html("Send Notification To All");
+	});
+
+    
+   // });
+</script>
+<script src="admin/assets/scripts/guest.js"></script>
