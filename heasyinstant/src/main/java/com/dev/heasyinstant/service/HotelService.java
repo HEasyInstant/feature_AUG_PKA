@@ -12,6 +12,8 @@ public interface HotelService {
 	
 	public void delteHotel();
 	
+	public void updateHotel();
+	
 	
 
 }

@@ -23,5 +23,12 @@ public class HotelServiceImpl implements HotelService{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void updateHotel() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 
 }
