@@ -10,6 +10,8 @@ public interface HotelService {
 	
 	public Hotel addHotel(Hotel hotel);
 	
+	public void delteHotel();
+	
 	
 
 }

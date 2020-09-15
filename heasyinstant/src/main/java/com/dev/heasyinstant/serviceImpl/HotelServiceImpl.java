@@ -18,5 +18,10 @@ public class HotelServiceImpl implements HotelService{
 		
 		return hotelRepository.save(hotel);
 	}
+	@Override
+	public void delteHotel() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
