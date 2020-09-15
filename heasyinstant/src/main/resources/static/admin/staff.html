@@ -1,0 +1,293 @@
+<script src="/admin/assets/scripts/staff.js"></script>
+<div onload="loadft();">
+
+    <section class="content-header"><br/> <br/>
+
+        <h1>
+            Staff
+            <!--<small>preview of simple tables</small>-->
+        </h1> <br/>
+
+    </section>
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 id="staff-form-title" class="staff-form-title">Add Staff</h3>
+            </div>
+            <div class="box-body">
+                <form id="add-staff" method="post">
+
+                    <div class="form-group">
+                        <label>Hotel Code</label>
+                        <input type="text" class="form-control" name="hotelCode" id="hotelCode" autocomplete="off"
+                               readonly="readonly">
+                    </div>
+                    <div class="form-group">
+                        <label>Name:*</label>
+                        <input type="text" class="form-control" id="name" name="name" autocomplete="off"/>
+                    </div>
+                    <div class="form-group">
+                        <label>User ID:*</label><font style="color:red;font-size:14px;font-weight: bold;">&nbsp;Will be
+                        used as Login-ID</font>
+                        <input type="text" class="form-control" id="staffuid" name="staffuid" autocomplete="off"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Password:</label>
+                        <input type="text" class="form-control" id="staffPwd" name="staffPwd" autocomplete="off"
+                               readonly="readonly" value="welcome123"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:*</label>
+                        <input type="text" class="form-control" id="staffEmail" name="staffEmail" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile:*</label>
+                        <input type="text" class="form-control" id="staffMobile" name="staffMobile" maxlength="10" pattern="[0-9]{10}" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Departments:*</label>
+                        <select id="staffDept" class="form-control" name="staffDept">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Permission:*</label>
+                        <select id="staffPer" class="form-control" name="staffPer">
+                            <option value="Read-Only">Read-Only</option>
+                            <option value="Read-Write">Read-Write</option>
+                        </select>
+                    </div>
+
+                    <div class="box-footer">
+
+                        <button type="submit" id="saveStaff" class="btn btn-primary">
+                            Save
+                        </button>
+
+                    </div>
+                </form>
+
+
+                <form id="update-staff" method="post" style="display: none;">
+
+                    <div class="form-group">
+                        <label>Hotel Code</label>
+                        <input type="text" class="form-control" name="edithotelCode" id="edithotelCode" autocomplete="off"
+                               readonly="readonly">
+                    </div>
+                    <div class="form-group">
+                        <label>Name:*</label>
+                        <input type="text" class="form-control" id="editStaffName" name="editStaffName" autocomplete="off"/>
+                    </div>
+                    <!--  <div class="form-group">
+                         <label>User ID:*</label><font style="color:red;font-size:14px;font-weight: bold;">&nbsp;Will be
+                         used as Login-ID</font>
+                         <input type="text" class="form-control" id="editStaffuid" name="editStaffuid" autocomplete="off"/>
+                     </div>
+                     <div class="form-group">
+                         <label>Password:</label>
+                         <input type="text" class="form-control" id="editStaffPwd" name="editStaffPwd" autocomplete="off"
+                                readonly="readonly" value="welcome123"/>
+                     </div> -->
+                    <div class="form-group">
+                        <label>Email:*</label>
+                        <input type="text" class="form-control" id="editStaffEmail" name="editStaffEmail" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile:*</label>
+                        <input type="text" class="form-control" id="editStaffMobile" name="editStaffMobile" maxlength="10" pattern="[0-9]{10}" autocomplete="off">
+                    </div>
+                    <!--  <div class="form-group">
+                         <label>Departments:*</label>
+                         <select id="editStaffDept" class="form-control" name="editStaffDept">
+                             <option value="">Select</option>
+                         </select>
+                     </div> -->
+                    <div class="form-group">
+                        <label>Permission:*</label>
+                        <select id="editStaffPer" class="form-control" name="editStaffPer">
+                            <option value="Read-Only">Read-Only</option>
+                            <option value="Read-Write">Read-Write</option>
+                        </select>
+                    </div>
+
+                    <div class="box-footer">
+
+                        <button type="submit" id="updateStaff" class="btn btn-primary">
+                            Update
+                        </button>
+
+                    </div>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Staff List</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" id="display_staffs">
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+
+    </div>
+</div>
+<script src="/admin/assets/scripts/staff.js"></script>
+<script src="/admin/assets/scripts/main.js"></script>
+<script type="text/javascript">
+    (function ($) {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+
+        $('#sign_out_link').click(function () {
+            document.getElementById("signout-dropdown-menu").style.display = "block";
+            $('.dropdown-toggle').dropdown();
+        });
+
+        $(document).click(function () {
+            $("#signout-dropdown-menu").hide();
+        });
+
+        $("#signout-dropdown-menu").click(function (e) {
+            e.stopPropagation();
+        });
+        $.validator.addMethod('isEmail', function(value, element) {
+            //var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            var regex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+            return regex.test(value);
+            //alert(parseInt(value) % 5 == 0);
+            //return parseInt(value) % 5 == 0;
+        }, 'Invalid email');
+        $('#add-staff').validate({
+            errorElement: 'span',
+            rules: {
+                staffuid: {
+                    required: true,
+                    noSpace: true,
+                    alphanumeric: true
+                },
+                name: {
+                    required: true,
+                    noSpace: true,
+                    alphanumericWithSpace: true
+                },
+                staffEmail: {
+                    required: true,
+                    email: true,
+                    isEmail: true,
+                    noSpace: true
+                },
+                staffMobile: {
+                    required: true,
+                    noSpace: true,
+                    minlength: 10,
+                    maxlength: 10,
+                    isIndianMobile: true
+                },
+                staffDept: "required",
+                staffPer: "required"
+            },
+            messages: {
+                staffuid: {
+                  required: "Required !"
+                },
+                name: {
+                    required: "Required !"
+                },
+                staffEmail: {
+                    required: "Required !",
+                    email: "Invalid email"
+                },
+                staffMobile: {
+                    required: "Required !",
+                    minlength: 'Minimum 10 digits only',
+                    maxlength: 'Maximum 10 digits only',
+                    isIndianMobile: 'First Number should be 9, 8 or 7 of mobile'
+                },
+                staffDept: "Required !",
+                staffPer: "Required !"
+            },
+            submitHandler: function (form) {
+                addStaff();
+            }
+        });
+
+        $('#update-staff').validate({
+            errorElement: 'span',
+            rules: {
+                editStaffuid: {
+                    required: true,
+                    noSpace: true,
+                    alphanumeric: true
+                },
+                editStaffName: {
+                    required: true,
+                    noSpace: true,
+                    alphanumeric: true
+                },
+                editStaffEmail: {
+                    required: true,
+                    email: true,
+                    isEmail: true,
+                    noSpace: true
+                },
+                editStaffMobile: {
+                    required: true,
+                    noSpace: true,
+                    minlength: 10,
+                    maxlength: 10,
+                    isIndianMobile: true
+                },
+                editStaffDept: "required",
+                editStaffPer: "required"
+            },
+            messages: {
+                editStaffuid: "Required !",
+                editStaffName: "Required !",
+                editStaffEmail: {
+                    required: "Required !",
+                    email: "Invalid email"
+                },
+                editStaffMobile: {
+                    required: "Required !",
+                    minlength: 'Minimum 10 digits only',
+                    maxlength: 'Maximum 10 digits only',
+                    isIndianMobile: 'First Number should be 9, 8 or 7 of mobile'
+                },
+                editStaffDept: "Required !",
+                editStaffPer: "Required !"
+            },
+            submitHandler: function (form) {
+                updateStaff();
+            }
+        });
+
+
+
+    })(jQuery);
+</script>
+<script src="/admin/assets/scripts/staff.js"></script>

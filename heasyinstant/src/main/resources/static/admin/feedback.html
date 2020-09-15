@@ -1,0 +1,268 @@
+<div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <br/>
+        <br/>
+
+        <h1> Feedback <!--<small>preview of simple tables</small>--></h1>
+        <br/>
+
+    </section>
+
+
+    <div class="tabbable">
+        <ul id="feedback_tabs" class="nav nav-tabs padding-16">
+            <li class="active"><a data-toggle="tab" href="#feedback-ans-div">Feedback Answers
+            </a></li>
+            <li><a data-toggle="tab" href="#add-feedback-qtn-div">Add Feedback Question
+            </a></li>
+            <li><a data-toggle="tab" href="#feedback-qtn-div">Feedback Question List
+            </a></li>
+        </ul>
+
+        <div class="tab-content profile-edit-tab-content">
+
+            <div class="tab-pane" id="add-feedback-qtn-div">
+                <div id="add-feedback-question-div" class="col-md-6">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 id="feedback-form-title" class="box-title">Add Feedback Question</h3>
+                        </div>
+                        <div class="box-body">
+                            <form id="add-feed" method="post">
+                                <div class="form-group">
+                                    <label>Questions</label>
+                                    <input type="text" class="form-control" name="que" id="que">
+                                </div>
+                                <div class="form-group">
+                                    <label>Answer type</label>
+                                    <select id="ans" class="form-control" name="ans">
+                                        <option value="rating">RATINGS</option>
+                                        <option value="selection">SELECTION</option>
+                                        <option value="comment">COMMENT</option>
+                                    </select>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="submit" id="feedback_btn" class="btn btn-primary">
+                                        Add
+                                    </button>
+                                </div>
+                            </form>
+							<form id="update-feed" method="post" style="display:none">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" name="questionId" id="questionId">
+									<label>Questions</label>
+                                    <input type="text" class="form-control" name="editQuestion" id="editQuestion">
+                                </div>
+                                <div class="form-group">
+                                    <label>Answer type</label>
+                                    <select id="editAns" class="form-control" name="editAns">
+                                        <option value="rating">RATINGS</option>
+                                        <option value="selection">SELECTION</option>
+                                        <option value="comment">COMMENT</option>
+                                    </select>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="submit" id="update_feedback_btn" class="btn btn-primary">
+                                        Update
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+  <div class="tab-pane in active" id="feedback-ans-div">
+ <div id="show-feedback-Answer-div" class="col-md-6">
+ <div id="feedback-drop-down-qtns">
+ <select name="feedbackQuestion-list" id="feedbackQuestion-list" class="form-control" style="margin-top: 5%; margin-left: 30%;">
+ 	<option value="">Select Questions</option>
+ </select>
+ </div>
+ <div class="container" style="margin-top: 1em;">  
+ <div class="inner" id='rating_div_info' style="text-align: center; background-color: white;"><span>No Answer Found</span></div>
+ <div class="inner" id='rating_loader' style="text-align: center;z-index:100; "><span>Loading...</span></div>
+ <div class="inner" id='rating_div_comments'  style="background-color: white;"></div>
+  <div class="inner" id='rating_div'  style="background-color: white;">
+    <div class="rating">
+      <span class="rating-num" id="average_span">4.0</span>
+      <div class="rating-stars">
+        <span><i class="active icon-star"></i></span>
+        <span><i class="active icon-star"></i></span>
+        <span><i class="active icon-star"></i></span>
+        <span><i class="active icon-star"></i></span>
+        <span><i class="icon-star"></i></span>
+      </div>
+      <div class="rating-users" id="rating-users">
+        <i class="icon-user"></i> <span id="total_count_span"></span>, Total
+      </div>
+    </div>
+    
+    <div class="histo">
+      <div class="five histo-rate">
+        <span class="histo-star">
+          <i class="active icon-star"></i><span id="option_five" style="float: right;"></span></span>
+        <span class="bar-block">
+          <span id="bar-five" class="bar">
+            <span id="total_5"></span>&nbsp;
+          </span> 
+        </span>
+      </div>
+      
+      <div class="four histo-rate" id="histo_4">
+        <span class="histo-star">
+          <i class="active icon-star"></i><span id="option_four" style="float: right;"></span></span>
+        <span class="bar-block">
+          <span id="bar-four" class="bar">
+            <span id="total_4"></span>&nbsp;
+          </span> 
+        </span>
+      </div> 
+      
+      <div class="three histo-rate" id="histo_3">
+        <span class="histo-star">
+          <i class="active icon-star"></i><span id="option_three" style="float: right;"></span></span>
+        <span class="bar-block">
+          <span id="bar-three" class="bar">
+            <span id="total_3"></span>&nbsp;
+          </span> 
+        </span>
+      </div>
+      
+      <div class="two histo-rate" id="histo_2">
+        <span class="histo-star">
+          <i class="active icon-star"></i><span id="option_two" style="float: right;"></span></span>
+        <span class="bar-block">
+          <span id="bar-two" class="bar">
+            <span id="total_2"></span>&nbsp;
+          </span> 
+        </span>
+      </div>
+      
+      <div class="one histo-rate" id="histo_1">
+        <span class="histo-star">
+          <i class="active icon-star"></i><span id="option_one" style="float: right;"></span></span>
+        <span class="bar-block">
+          <span id="bar-one" class="bar">
+            <span id="total_1"></span>&nbsp;
+          </span> 
+        </span>
+      </div>
+    </div>
+  </div>
+  
+</div>
+</div>
+</div>
+
+            <div class="tab-pane" id="feedback-qtn-div">
+                <div class="col-md-6">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Feedback Question List</h3>
+                        </div>
+                        <div class="box-body" id="feedqtn-data-table">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="admin/assets/scripts/feedback.js"></script>
+
+
+<script type="text/javascript">
+    (function ($) {
+    	$('#rating_div').hide();
+    	$('#rating_div_info').hide();
+    	$('#rating_div_comments').hide();
+    	 $('#rating_loader').hide();
+        getfeedbacklist();
+        //getfeedbackAnswers();
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        $('#sign_out_link').click(function () {
+            document.getElementById("signout-dropdown-menu").style.display = "block";
+            $('.dropdown-toggle').dropdown();
+        });
+
+        $(document).click(function () {
+            $("#signout-dropdown-menu").hide();
+        });
+
+        $("#signout-dropdown-menu").click(function (e) {
+            e.stopPropagation();
+        });
+
+
+        $('#add-feed').validate({
+            errorElement: 'span',
+            rules: {
+                que: {
+                	required: true,
+                	noSpace: true
+                },
+
+            },
+            messages: {
+                que: "Required !",
+
+            },
+            submitHandler: function (form) {
+                addFeedbackQue();
+            }
+        });
+
+		$('#update-feed').validate({
+            errorElement: 'span',
+            rules: {
+                editQuestion: {
+                	required: true,
+                	noSpace: true
+                },
+            },
+            messages: {
+                editQuestion: "Required !",
+            },
+            submitHandler: function (form) {
+                updateFeedbackQue();
+            }
+        });
+  	$("#feedbackQuestion-list").change(function () {
+        var selectedValue = $(this).val();
+        if(selectedValue!=''){
+        
+        $('#rating_loader').show();
+        
+        getFeedbackByIdWithCount(Number(selectedValue));
+        }
+        $('#rating_div_info').hide();
+        $('#rating_div_comments').hide();
+        $('#rating_div').hide();
+  	});
+  	  
+    })(jQuery);
+</script>
+</body>
+</html>

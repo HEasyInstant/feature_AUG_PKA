@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://ka.railwire.co.in/subcntl -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Stayoh</title>
+
+    <meta name="description" content="User login page">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <link rel="stylesheet" href="admin/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="admin/assets/css/font-awesome.css">
+
+    <link rel="stylesheet" href="admin/assets/css/jquery-ui.custom.css">
+    <link rel="stylesheet" href="admin/assets/css/chosen.css">
+    <link rel="stylesheet" href="admin/assets/css/select2.css">
+    <link rel="stylesheet" href="admin/assets/css/datepicker.css">
+    <link rel="stylesheet" href="admin/assets/css/bootstrap-editable.css">
+    <link rel="stylesheet" href="admin/assets/css/bootstrap-timepicker.css">
+    <link rel="stylesheet" href="admin/assets/css/daterangepicker.css">
+    <link rel="stylesheet" href="admin/assets/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="admin/assets/css/jquery.gritter.css">
+    <link rel="stylesheet" href="admin/assets/css/toastr.min.css">
+    <link rel="stylesheet" href="admin/assets/css/sweet-alert.css">
+
+    <link rel="stylesheet" href="admin/assets/css/ace-fonts.css">
+    <link rel="stylesheet" href="admin/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style">
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/admin/assets/css/ace-part2.css"/>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/admin/assets/css/ace-ie.css"/>
+    <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <script src="admin/assets/js/ace-extra.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/admin/assets/js/html5shiv.js"></script>
+    <script src="/admin/assets/js/respond.js"></script>
+    <![endif]-->
+</head><script>function inject(){function a(){function a(a){parent.postMessage({type:"blockedWindow",args:JSON.stringify(a)},l)}function b(a){var b=a[1];return null!=b&&["_blank","_parent","_self","_top"].indexOf(b)<0?b:null}function e(a,b){var c;for(c in a)try{void 0===b[c]&&(b[c]=a[c])}catch(d){}return b}var g=arguments,h=!0,j=null,k=null;if(null!=window.event&&(k=window.event.currentTarget),null==k){for(var m=g.callee;null!=m.arguments&&null!=m.arguments.callee.caller;)m=m.arguments.callee.caller;null!=m.arguments&&m.arguments.length>0&&null!=m.arguments[0].currentTarget&&(k=m.arguments[0].currentTarget)}null!=k&&(k instanceof Window||k===document||null!=k.URL&&null!=k.body||null!=k.nodeName&&("body"==k.nodeName.toLowerCase()||"#document"==k.nodeName.toLowerCase()))?(window.pbreason="Blocked a new window opened with URL: "+g[0]+" because it was triggered by the "+k.nodeName+" element",h=!1):h=!0;document.webkitFullscreenElement||document.mozFullscreenElement||document.fullscreenElement;if(((new Date).getTime()-d<1e3||isNaN(d)&&c())&&(window.pbreason="Blocked a new window opened with URL: "+g[0]+" because a full screen was just initiated while opening this url.",document.exitFullscreen?document.exitFullscreen():document.mozCancelFullScreen?document.mozCancelFullScreen():document.webkitCancelFullScreen&&document.webkitCancelFullScreen(),h=!1),1==h){j=f.apply(this,g);var n=b(g);if(null!=n&&(i[n]=j),j!==window){var o=(new Date).getTime(),p=j.blur;j.blur=function(){(new Date).getTime()-o<1e3?(window.pbreason="Blocked a new window opened with URL: "+g[0]+" because a it was blured",j.close(),a(g)):p()}}}else{var q={href:g[0]};q.replace=function(a){q.href=a},j={close:function(){return!0},test:function(){return!0},blur:function(){return!0},focus:function(){return!0},showModelessDialog:function(){return!0},showModalDialog:function(){return!0},prompt:function(){return!0},confirm:function(){return!0},alert:function(){return!0},moveTo:function(){return!0},moveBy:function(){return!0},resizeTo:function(){return!0},resizeBy:function(){return!0},scrollBy:function(){return!0},scrollTo:function(){return!0},getSelection:function(){return!0},onunload:function(){return!0},print:function(){return!0},open:function(){return this},opener:window,closed:!1,innerHeight:480,innerWidth:640,name:g[1],location:q,document:{location:q}},e(window,j),j.window=j;var n=b(g);if(null!=n)try{i[n].close()}catch(r){}setTimeout(function(){var b;b=j.location instanceof Object?j.document.location instanceof Object?null!=q.href?q.href:g[0]:j.document.location:j.location,g[0]=b,a(g)},100)}return j}function b(a){d=a?(new Date).getTime():0/0}function c(){return document.fullScreenElement&&null!==document.fullScreenElement||null!=document.mozFullscreenElement||null!=document.webkitFullscreenElement}var d,e="originalOpenFunction",f=window.open,g=document.createElement,h=document.createEvent,i={},j=0,k=null,l=window.location!=window.parent.location?document.referrer:document.location;window[e]=window.open,window.open=function(){try{return a.apply(this,arguments)}catch(b){return null}},document.createElement=function(){var a=g.apply(document,arguments);if("a"==arguments[0]||"A"==arguments[0]){j=(new Date).getTime();var b=a.dispatchEvent;a.dispatchEvent=function(c){return null!=c.type&&"click"==(""+c.type).toLocaleLowerCase()?(window.pbreason="blocked due to an explicit dispatchEvent event with type 'click' on an 'a' tag",parent.postMessage({type:"blockedWindow",args:JSON.stringify({0:a.href})},l),!0):b(c)},k=a}return a},document.createEvent=function(){try{return arguments[0].toLowerCase().indexOf("mouse")>=0&&(new Date).getTime()-j<=50?(window.pbreason="Blocked because 'a' element was recently created and "+arguments[0]+" event was created shortly after",arguments[0]=k.href,parent.postMessage({type:"blockedWindow",args:JSON.stringify({0:k.href})},l),null):h.apply(document,arguments)}catch(a){}},document.addEventListener("fullscreenchange",function(){b(document.fullscreen)},!1),document.addEventListener("mozfullscreenchange",function(){b(document.mozFullScreen)},!1),document.addEventListener("webkitfullscreenchange",function(){b(document.webkitIsFullScreen)},!1)} inject()</script><body class="no-skin">
+<div id="navbar" class="navbar navbar-default">
+    <script type="text/javascript">
+        try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+    </script>
+    <div class="navbar-container" id="navbar-container">
+        <!-- #section:basics/sidebar.mobile.toggle -->
+        <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+            <span class="sr-only">Toggle sidebar</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <!-- /section:basics/sidebar.mobile.toggle -->
+        <div class="navbar-header pull-left">
+            <!-- #section:basics/navbar.layout.brand -->
+            <a href="#" class="navbar-brand">
+                <small>
+                    <!--<i class="fa fa-leaf"></i>-->
+                    Stayoh Admin Panel
+                </small>
+            </a>
+            <!-- /section:basics/navbar.layout.brand -->
+            <!-- #section:basics/navbar.toggle -->
+            <!-- /section:basics/navbar.toggle -->
+        </div>
+        <!-- #section:basics/navbar.dropdown -->
+        <div class="navbar-buttons navbar-header pull-right" role="navigation">
+            <ul class="nav ace-nav">
+
+                <li class="light-blue">
+                    <a data-toggle="dropdown" href="http://ka.railwire.co.in/subcntl#" class="dropdown-toggle">
+                        <img class="nav-user-photo" src="admin/assets/css/images/avatar2.png" alt="Jason&#39;s Photo">
+                        <span class="user-info">
+                            <small>Welcome,</small>
+                            Rajesh Kumar Kushwaha                        </span>
+                        <i class="ace-icon fa fa-caret-down"></i>
+                    </a>
+                    <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <i class="ace-icon fa fa-power-off"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try{ace.settings.check('main-container' , 'fixed')} catch(e){}
+    </script>
+    <div id="sidebar" class="sidebar responsive">
+        <script type="text/javascript">
+            try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+        </script>
+        <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+            <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                <span class="btn btn-success"></span>
+                <span class="btn btn-info"></span>
+                <span class="btn btn-warning"></span>
+            </div>
+        </div>
+        <ul class="nav nav-list">
+            <li class="">
+                <a href="/adminpanel">
+                    <i class="menu-icon fa fa-tachometer"></i>
+                    <span class="menu-text"> User Management </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li class="">
+                <a href="/customer">
+                    <span class="menu-text"> Customer </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li class="">
+                <a href="#">
+                    <span class="menu-text"> Service </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li class="">
+                <a href="#">
+                    <span class="menu-text"> Notification </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <script type="text/javascript">
+                    try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+                </script>
+                <ul class="breadcrumb">
+
+                </ul>
+            </div>
+            <div class="page-content">
+
+
+                <div class="">
+                    <div id="user-profile-3" class="user-profile row">
+                        <div class="col-sm-offset-1 col-sm-10">
+                            <!--                            <div class="well well-sm">
+                                                            <div class="inline middle blue bigger-110"> </div>
+                                                        </div>-->
+                            <div class="space"></div>
+                            <form class="form-horizontal">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs padding-16">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#customer-search">
+                                                <i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
+                                                Customer Search
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#customer-add">
+                                                <i class="purple ace-icon fa fa-cog bigger-125"></i>
+                                                Customer Add
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content profile-edit-tab-content">
+                                        <div id="customer-search" class="tab-pane  in active">
+                                            <div class="space-10"></div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right" for="form-field-name">Customer Search</label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="text" id="form-field-name" autocomplete="off">
+                                                </div>
+                                            </div>
+
+                                            <div class="space-4"></div>
+                                            <h4 class="header blue bolder smaller">Customer Info</h4>
+
+                                            <div class="row">
+                                                <div class="profile-user-info profile-user-info-striped">
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Name </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="subname">Rajesh Kumar Kushwaha</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Mobile No.  </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="age">9739729169</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Email </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="signup">rajeshcs2005@gmail.com</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+<!--
+                                        <div id="customer-add" class="tab-pane">
+                                            <br/>
+                                            <input type="hidden" id="username" name="username" value="ka.rajesh.kushwaha">
+                                            <input type="hidden" id="subid" name="subid" value="50956">
+                                            <h4 class="header blue bolder smaller">Subscription</h4>
+                                            <div class="row">
+                                                <div class="profile-user-info profile-user-info-striped">
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Username </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="uname">ka.rajesh.kushwaha</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Subscriberid </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="country">50956</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Registration Date  </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="age">2015-09-19 10:28:18</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Associated LCO </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="signup">Vinayaka Agency</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="header blue bolder smaller">Package</h4>
+                                            <div class="row">
+                                                <div class="profile-user-info profile-user-info-striped">
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Plan </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="plan">FUP2Mbps_50GB</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Valid upto </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="country">2016-05-28 23:59:59</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Plan fee  </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="age">800.36</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="header blue bolder smaller">Accounts</h4>
+                                            <div class="row">
+                                                <div class="profile-user-info profile-user-info-striped">
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Balance </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="balance">0.05</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="profile-info-row">
+                                                        <div class="profile-info-name"> Last Renewal </div>
+
+                                                        <div class="profile-info-value">
+                                                            <span class="editable" id="country">2016-04-28 11:16:50</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+-->
+                                        <div id="customer-add" class="tab-pane">
+                                            <div class="space-10"></div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right" for="form-field-name">User Name</label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="text" id="form-field-name" autocomplete="off">
+                                                </div>
+                                            </div>
+
+                                            <div class="space-4"></div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">New Password</label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="password" id="form-field-pass1" autocomplete="off">
+                                                </div>
+                                            </div>
+
+                                            <div class="space-4"></div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right" for="form-field-mobile">Mobile</label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="text" id="form-field-mobile" autocomplete="off">
+                                                </div>
+                                            </div>
+
+                                            <div class="space-4"></div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right" for="form-field-permission">Permission</label>
+
+                                                <div class="col-sm-9" style="padding-top: 10px;">
+                                                    <input type="radio" name="permission" id="form-field-permission"> ReadOnly
+                                                    <input type="radio" name="permission" id="form-field-permission"> ReadWrite
+                                                    <input type="radio" name="permission" id="form-field-permission"> Full Permission
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <input type="hidden" id="baseurl" name="baseurl" value="/">
+                                                <button class="btn btn-mini btn-grey" id="change_profile_pass">
+                                                    <i class="ace-icon fa fa-check-circle"></i>
+                                                    Apply change
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div id="edit-password" class="tab-pane">
+                                            <div class="space-10"></div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">New Password</label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="password" id="form-field-pass1" autocomplete="off">
+                                                </div>
+                                            </div>
+
+                                            <div class="space-4"></div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right" for="form-field-pass2">Confirm Password</label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="password" id="form-field-pass2" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="hidden" id="baseurl" name="baseurl" value="/">
+                                                <button class="btn btn-mini btn-grey" id="change_profile_pass">
+                                                    <i class="ace-icon fa fa-check-circle"></i>
+                                                    Apply change
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div><!-- /.span -->
+                    </div><!-- /.user-profile -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <div class="footer-inner">
+        <div class="footer-content">
+            <span>
+                <span class="text-muted">Stayoh Admin Panel</span>
+                � 2016-2017
+            </span>
+            &nbsp; &nbsp;
+        </div>
+    </div>
+</div>
+
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+</a>
+
+<!--[if !IE]> -->
+<script src="admin/assets/js/jquery.js" type="text/javascript"></script>
+<!-- <![endif]-->
+<!--[if IE]>
+<script src="/admin/assets/js/jquery1x.js" type="text/javascript"></script>
+<![endif]-->
+<script type="text/javascript">
+    if('ontouchstart' in document.documentElement) document.write("<script src='../../../../admin/assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
+</script>
+<script src="admin/assets/js/bootstrap.js"></script>
+<script src="admin/assets/js/jquery-ui.custom.js"></script>
+<script src="admin/assets/js/jquery.ui.touch-punch.js"></script>
+<script src="admin/assets/js/ace.js"></script>
+<script src="admin/assets/js/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-bottom-right",
+            "onclick": null,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "hideMethod": "fadeOut"
+        };
+        $('#change_profile_pass').on('click', function(e){
+            e.preventDefault();
+            var subid = $('#subid').val().trim();
+            var uname = $('#username').val().trim();
+            var pass = $('#form-field-pass1').val().trim();
+            var vpass = $('#form-field-pass2').val().trim();
+            if((subid != "") && (pass != "") && (vpass != "") ){
+                if(pass == vpass){
+                    var base_url = $('#baseurl').val().trim() +'subcntl/changeprofilepass';
+                    var rd_url = $('#baseurl').val().trim() +'rlogin/passwordreset';
+                    $.ajax({
+                        type: 'POST',
+                        url: base_url,
+                        data: {'subid' : subid,'pass' : pass,'uname' : uname},
+                        success: function(json){
+                            try{
+                                var obj = jQuery.parseJSON(json);
+                                if(obj['STATUS'] === "OK") {
+                                    window.location.replace(rd_url);
+                                    toastr['success']("Password changed successfuly. Please re-login to billing with the new passowrd ", 'Password Changed');
+                                } else {
+                                    toastr['error'](obj['STATUS'], 'Error!');
+                                }
+                            }catch(e) {
+                                toastr['error']("Exception while request", 'Request Error!');
+                            }
+                        },
+                        error: function(){
+                            toastr['error']("Exception while request", 'Request Error!');
+                        }
+                    });
+                } else {
+                    toastr['error']("Please confirm the password", 'Confirm Password');
+                }
+
+            } else {
+                toastr['error']("Please verify your entries.", 'Empty Data!');
+            }
+        });
+
+    });
+</script>
+
+
+</body></html>

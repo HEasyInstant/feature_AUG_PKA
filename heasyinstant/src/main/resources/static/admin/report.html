@@ -1,0 +1,449 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.4/css/buttons.dataTables.min.css">
+
+<script src="admin/assets/scripts/analytics.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.4/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.4/js/buttons.html5.min.js"></script>
+
+<style>
+  .tabclass {
+border: none;
+outline: none;
+padding: 10px 16px;
+background-color: #f1f1f1;
+cursor: pointer;
+font-size: 18px;
+}
+
+/* Style the active class, and buttons on mouse-over */
+.tabactiveactive, .tabclass:hover {
+background-color: #666;
+color: white;
+}
+</style>
+
+<div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <br/>
+        <br/>
+
+        <h1> Report <!--<small>preview of simple tables</small>--></h1>
+        <br/>
+
+    </section>
+    <div class="col-lg-12">
+
+        <div  class="form-horizontal">
+
+
+    <div class='col-md-3'>
+        <div class="form-group">
+        <label for="start_date" class="col-sm-4 control-label">Start Date:</label>
+            <div class='input-group date' >
+                <input type='date' class="form-control" id='start_date'/>
+
+            </div>
+        </div>
+    </div>
+    <div class='col-md-3'>
+        <div class="form-group">
+        <label for="end_date" class="col-sm-4 control-label">End Date:</label>
+            <div class='input-group date'>
+                <input type='date' class="form-control" id='end_date'/>
+            </div>
+        </div>
+    </div>
+
+    <div class='col-md-3'>
+      <div class="form-group">
+          <label for="actions" class="col-sm-4 control-label">Actions:</label>
+            <div class='input-group'>
+          <select id="analytics-type" class="form-control" name="analytics-type">
+              <option value="orders">Orders</option>
+              <option value="guests">Guests</option>
+          </select>
+        </div>
+        </div>
+</div>
+
+    <div class='col-md-1'>
+        <div class="form-group">
+                <input type='button' value="Submit" class="btn btn-primary" id='submit_dates'/>
+        </div>
+    </div>
+
+
+            <!-- /.box-body -->
+        </div>
+
+        <!-- /.box -->
+    </div>
+
+      <div id="report-outer" class="col-md-12" style="display: none">
+            <div class="box">
+                <div class="box-body" id="checkedout_guest_div">
+                </div>
+                <div class="box-body" id="order_div">
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+    <!-- /.col -->
+
+
+    <div class="modal fade" id="reportModal" role="dialog" aria-labelledby="reportModalLabel">
+        <div class="modal-dialog" role="document" style="background-color: white; width:75%;">
+<div class="tabbable">
+  <ul class="nav nav-tabs padding-16" id='report-tab'>
+      <li><a data-toggle="tab" href="#order_modal_content">
+          Order Details
+      </a></li>
+      <li><a data-toggle="tab" href="#feedback_modal_content">Feedback
+      </a></li>
+  </ul>
+  <div class="tab-content profile-edit-tab-content">
+    <div class="tab-pane active" id="order_modal_content">
+    </div>
+    <div class="tab-pane" id="feedback_modal_content">
+      <span>hello hiiii</span>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="cancel_vc_modal" class="btn btn-default" data-dismiss="modal">
+            close
+        </button>
+    </div>
+  </div>
+
+
+</div>
+<script>
+
+function displayOrderPopup(gid){
+   var url = 'api/guest/getOrderByGuestIdReport?access_token=' + window.localStorage.getItem("token");
+     $.ajax({
+          type: 'POST',
+          dataType: 'json',
+          contentType: 'application/json',
+          url: url,
+          data: '{"guestId":' + gid + '}',
+          success: function (json) {
+
+            if(json.success == true ){
+              var count = 0;
+            var orders = json.order.order;
+            var tabledata = "<table id='order_report_popup' class='table table-bordered table-striped'>"+
+            "<thead><tr>"+
+            "<th width='5%'>#</th>"+
+            "<th width='15%'>Time</th>"+
+            "<th width='50%'>Item Details</th>"+
+            "<th width='30%'>User Remark</th>"+
+            "</tr></thead>" +
+            "<tbody>";
+
+            var open_count = 0;
+            var d;
+            var dp ;
+            var n ;
+            for (var j = orders.length-1; j >=0; j--) {
+
+                var localizedDate = moment(new Date(orders[j].orderDate+" UTC")).format('MMM DD, hh:mm:ss a').toString();
+                tabledata = tabledata + "<tr style='margin-left: 0px; width: 1059px;'>" +
+                "<td width='5%'>" + (++count) + "</td>" +
+                "<td width='15%'>" + localizedDate+ "</td>" ;
+                var td="<td width='50%'>";
+            for(var k =0;k<orders[j].items.length; k++){
+
+                  var serviceName=orders[j].items[k].serviceName;
+                  var serviceItemName=orders[j].items[k].serviceItemName;
+                  var itemName=orders[j].items[k].itemName;
+                  var quantity=orders[j].items[k].qty;
+                  var amount=orders[j].items[k].amount;
+                  var nameToDisplay;
+                  var tr = "<table class='table table-bordered table-striped'>";
+                  var isItemAvailable = false;
+                  if(orders[j].items[k].isItemAvailable == undefined || orders[j].items[k].isItemAvailable == "undefined" || orders[j].items[k].isItemAvailable == true){
+                    isItemAvailable = true;
+                  }
+                  if(itemName!=null && itemName!=''){
+                    nameToDisplay=itemName;
+                  }else if(serviceItemName!=null && serviceItemName!='' ){
+                    nameToDisplay=serviceItemName;
+                  }else{
+                    nameToDisplay=serviceName;
+                  }
+                  tr = tr+"<tr><td width='70%'>"+nameToDisplay+"<span>"+(!isItemAvailable?' (Not Available)'.fontcolor("red"):'')+"</span></td><td width='10%'>"+quantity+"</td><td width='20%'>"+amount+"</td>"+
+                  "</tr></table>";
+                  td=td+tr;
+                }
+                var remark = orders[j].remark;
+                if(remark == undefined || remark == "undefined")
+                  remark = "NA";
+                tabledata=tabledata+td+"<td width='30%'>"+remark+"</td>";
+
+
+            }
+            tabledata = tabledata + "</tbody></table>";
+            document.getElementById('order_modal_content').innerHTML = tabledata;
+            $('#order_report_popup').DataTable({
+            "paging" : true,
+            "lengthChange" : true,
+            "ordering" : true,
+            "info" : true,
+            "autoWidth" : true
+          });
+          var feedbacktable = "<table id='feedback_report_popup' class='table table-bordered table-striped'>"+
+          "<thead><tr>"+
+          "<th width='5%'>#</th>"+
+          "<th width='50%'>Question</th>"+
+          "<th width='45%'>Answer</th>"+
+          "</tr></thead>" +
+          "<tbody>";
+            var feedback = json.order.feedback;
+            for (var m =0; m< feedback.length; m++) {
+              feedbacktable += "<tr><td>"+(m+1)+"</td><td>"+feedback[m].question+"</td><td>"+feedback[m].answer+"</td></tr>";
+            }
+            feedbacktable += "</tbody><table>";
+            document.getElementById('feedback_modal_content').innerHTML = feedbacktable;
+}
+//order_modal_content
+$('#reportModal').modal('toggle');
+          }
+        });
+}
+
+var hotelId = window.localStorage.getItem("hotelCodeVal");
+         $('#submit_dates').click(function () {
+        	 var startDate = new Date($('#start_date').val());
+        	 var endDate = new Date($('#end_date').val());
+           var startUtc = moment(startDate,'MM/DD/YYYY HH:mm:ss');
+
+           console.log(startUtc+"  "+endDate);
+        	 if ( startDate=='Invalid Date' || endDate=='Invalid Date' || startDate > endDate){
+        		 toastr.error('Invalid date range');
+        	 }else{
+            var actionType = $('#analytics-type').val();
+            if(actionType=='guests'){
+        		 var url = '/api/guest/getCheckedoutGuestListByRange?access_token=' + window.localStorage.getItem("token");
+        		   $.ajax({
+       	            type: 'POST',
+       	            dataType: 'json',
+       	            contentType: 'application/json',
+       	            url: url,
+       	            data: '{"hotelId":"' + hotelId + '","startDate":"'+startDate+'", "endDate":"'+endDate+'"}',
+       	            success: function (json) {
+       	                try {
+       	                 if (json['success'] == true) {
+       	                	var tabledata = "<table id='allcheckedoutguests' class='table table-bordered table-striped'>"+
+    						"<thead>"+
+    							"<tr>"+
+    								"<th>Guest Name</th>"+
+    								"<th>Room No</th>"+
+    								"<th>Checked out Date</th>"+
+    							"</tr>"+
+    						"</thead>"+
+    					"<tbody>";
+
+    					var len = json['guests'].length;
+    					for (var i = len-1; i >=0; i--) {
+								tabledata = tabledata +
+								"<tr>"+
+									"<td><a href='#' onclick=displayOrderPopup('"+json['guests'][i]['guestCode']+"')><span >"+ json['guests'][i]['name'] +"</span></a></td>"+
+									"<td>" + json['guests'][i]['roomNumber'] + "</td>"+
+									"<td>" + json['guests'][i]['checkoutDate'] + "</td>"+
+								"</tr>";
+
+						}
+
+    					//Iterate the list and populate the table
+       	                	tabledata = tabledata + "</tbody></table>";
+       						document.getElementById('checkedout_guest_div').innerHTML = tabledata;
+
+       						$('#allcheckedoutguests').DataTable({
+       							"paging" : true,
+       							"lengthChange" : true,
+       							"searching" : true,
+       							"ordering" : true,
+       							"info" : true,
+       							"autoWidth" : true,
+                    "dom": 'Bfrtip',
+                    "buttons": [
+                    {
+                      "extend": 'excelHtml5',
+                      "text": 'Download'
+                    }
+                    ]
+       						});
+
+       						$('#report-outer').css('display', 'block');
+                  $('#order_div').css('display', 'none');
+                  $('#checkedout_guest_div').css('display', 'block');
+
+       	                 }else{
+       	                	toastr.error('Unable to fetch data');
+       	                 }
+       	                }catch(e){
+       	                	toastr.error('Unable to fetch data');
+       	                }
+       	            },
+       	            error: function () {
+       	            	toastr.error('Unable to fetch data');
+       	            }
+       	        });
+
+              }else if(actionType=='orders'){
+                endDate = moment(endDate).format("MMM DD YYYY, HH:mm:ss A");
+                startDate = moment(startDate).format("MMM DD YYYY, HH:mm:ss A");
+                var staffId = window.localStorage.getItem("clientId");
+                var url = 'admin/api/hotel/getAllOrder?access_token=' + window.localStorage.getItem("token");
+              	$.ajax({
+              		type : 'POST',
+              		dataType : 'json',
+              		contentType : 'application/json',
+              		url : url,
+              		data : '{"hotelCode":  '+hotelId+',"staffId":'+staffId+',"earliest":"'+startDate+'","latest":"'+endDate+'"}',
+                //  data: '{"hotelCode":' + hotelId + ',"staffId":'+staffId+',"earliest":"'+startDate+'", "latest":"'+endDate+'"}',
+              		success : function(json) {
+              			try {
+                      var downloadableData;
+              				var obj = json;
+              				var count=0;
+              				if (json.success == true) {
+              					if(json.orders == null){
+              						var tabledata = "<table id='complete_orderTable' class='table table-bordered table-striped' style='margin-left: 0px; width: 1059px;'>"+
+              						"<thead><tr>"+
+              						"<th width='10%'>Order ID</th>"+
+              						"<th width='10%'>Room #</th>"+
+                          "<th width='15%'>Name</th>"+
+              						"<th width='20%'>Time</th>"+
+              						"<th width='25%'>Item Name</th>"+
+                          "<th width='10%'>Quantity</th>"+
+                          "<th width='10%'>Price</th>"+
+              						"</tr></thead>" +
+              						"<tbody>";
+              						tabledata = tabledata + "</tbody></table>";
+              						document.getElementById('complete_orderTable').innerHTML = tabledata;
+
+              							$('#complete_orderTable').DataTable({
+              							"paging" : true,
+              							"lengthChange" : true,
+              							"ordering" : true,
+              							"info" : true,
+              							"autoWidth" : true
+              						});
+              					}else{
+              						var orders = json.orders;
+              						var tabledata = "<table id='complete_orderTable' class='table table-bordered table-striped'>"+
+                            "<thead><tr>"+
+                              "<th width='10%'>Order ID</th>"+
+                  						"<th width='10%'>Room #</th>"+
+                              "<th width='15%'>Name</th>"+
+                  						"<th width='20%'>Time</th>"+
+                  						"<th width='25%'>Item Name</th>"+
+                              "<th width='10%'>Quantity</th>"+
+                              "<th width='10%'>Price</th>"+
+                						"</tr></thead>" +
+              						"<tbody>";
+
+              						var open_count = 0;
+              						var d;
+              						var dp ;
+              						var n ;
+              						for (var j = orders.length-1; j >=0; j--) {
+              							var roomNumber = orders[j].guest.roomNumber;
+                            var guestName = orders[j].guest.name;
+              							for(var k =0;k<orders[j].order.length; k++){
+              								var localizedDate = moment(new Date(orders[j].order[k].orderDate+" UTC")).format('MMM DD, hh:mm:ss a').toString();
+                              var oid = orders[j].order[k].orderId;
+              						 		for(var l=0;l<orders[j].order[k].items.length;l++){
+                                tabledata = tabledata + "<tr style='margin-left: 0px; width: 1059px;'>" +
+                                "<td width='10%'>" + oid + "</td>" +
+                                "<td width='10%'>" + roomNumber +"</td>" +
+                                "<td width='15%'>" + guestName +"</td>" +
+                                "<td width='20%'>" + localizedDate+ "</td>" ;
+
+              						 			var serviceName=orders[j].order[k].items[l].serviceName;
+              						 			var serviceItemName=orders[j].order[k].items[l].serviceItemName;
+              						 			var itemName=orders[j].order[k].items[l].itemName;
+              						 			var quantity=orders[j].order[k].items[l].qty;
+              						 			var amount=orders[j].order[k].items[l].amount;
+              						 			var nameToDisplay;
+              						 		//	var tr = "<table class='table table-bordered table-striped'>";
+              									var isItemAvailable = false;
+              									if(orders[j].order[k].items[l].isItemAvailable == undefined || orders[j].order[k].items[l].isItemAvailable == "undefined" || orders[j].order[k].items[l].isItemAvailable == true){
+              										isItemAvailable = true;
+              									}
+              						 			if(itemName!=null && itemName!=''){
+              						 				nameToDisplay=itemName;
+              						 			}else if(serviceItemName!=null && serviceItemName!='' ){
+              						 				nameToDisplay=serviceItemName;
+              						 			}else{
+              						 				nameToDisplay=serviceName;
+              						 			}
+              						 			tabledata = tabledata +"<td width='25%'>"+nameToDisplay+"<span>"+(!isItemAvailable?' (Not Available)'.fontcolor("red"):'')+"</span></td><td width='10%'>"+quantity+"</td><td width='10%'>"+amount+"</td>"+
+              									"</tr>";
+
+
+              						 		}
+
+
+              							}
+
+              							//alert(tabledata);
+              						}
+              						tabledata = tabledata + "</tbody></table>";
+              						document.getElementById('order_div').innerHTML = tabledata;
+                          $('#complete_orderTable').DataTable({
+                          "paging" : true,
+                          "lengthChange" : true,
+                          "ordering" : true,
+                          "info" : true,
+                          "autoWidth" : true,
+                          "dom": 'Bfrtip',
+                          "buttons": [
+                          {
+                            "extend": 'excelHtml5',
+                            "text": 'Download'
+                          }
+                          ]
+                        });
+
+                        $('#report-outer').css('display', 'block');
+                        $('#checkedout_guest_div').css('display', 'none');
+                        $('#order_div').css('display', 'block');
+
+              					}
+              				}  else {
+              					console.log("inserted count is: " + json.insertedCount);
+              				}
+              			} catch (e) {
+              				console.log("Error:"+e)
+              			}
+              		},
+              		error : function() {
+              		}
+              	});
+              }  //end of else
+        	 }
+        });
+
+        $('#sign_out_link').click(function () {
+            document.getElementById("signout-dropdown-menu").style.display = "block";
+            $('.dropdown-toggle').dropdown();
+        });
+
+        $(document).click(function () {
+            $("#signout-dropdown-menu").hide();
+        });
+
+        $("#signout-dropdown-menu"
+        ).click(function (e) {
+            e.stopPropagation();
+        });
+
+   // });
+</script>
+<script src="admin/assets/scripts/analytics.js"></script>

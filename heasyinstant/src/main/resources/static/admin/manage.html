@@ -1,0 +1,389 @@
+<div>
+	<section class="content-header">
+		<br/>
+		<br/>
+
+		<h1> Hotel Description <!--<small>preview of simple tables</small>--></h1>
+		<br/>
+
+	</section>
+
+	<div class="col-md-6">
+		<div class="box box-primary">
+			<div class="box-header">
+				<h3 class="box-title">Update Hotel Description</h3>
+			</div>
+			<div class="box-body">
+				<form id="update-hotel-desc" method="post">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="HotelName">Name:</label>
+						<input type="hidden" name="hotelCode" id="hotelCode">
+						<input type="text" class="form-control" id="hotelName" name="hotelName" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="desc">Description:</label>
+						<textarea class="form-control custom-control" id="hotelDesc" name="hotelDesc" rows="18"
+                              style="resize:none"></textarea>
+					</div>
+
+					<div class="box-footer">
+						<button type="submit" id="update_Hotel_Desc" class="btn btn-primary">
+							Update
+						</button>
+					</div>
+				</form>
+			</div>
+			<!-- /.box-body -->
+		</div>
+	</div>
+	<div class="col-xs-6">
+		<div class="box box-success">
+			<div class="box-header">
+				<h3 class="box-title">Time Scheduler</h3>
+			</div>
+			<!-- breakfast---->
+			<div class="box-body">
+				<form id="breakfast-timing" method="post">
+				<label>Breakfast Timing</label>
+				<input type="hidden" id="break_schedulerId">
+				<div class="row">
+					<div class="col-xs-5">
+						<div class="bootstrap-timepicker">
+							<div class="form-group">
+								<div class="input-group">
+									<select id="br_start_time" class="form-control">
+										<option value="select">--Select--</option>
+										<option value="07:45">07:45</option>
+										<option value="08:00">08:00</option>
+										<option value="08:15">08:15</option>
+										<option value="08:45">08:45</option>
+										<option value="09:00">09:00</option>
+										<option value="09:15">09:15</option>
+										<option value="09:30">09:30</option>
+										<option value="09:45">09:45</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-5">
+						<div class="bootstrap-timepicker">
+							<div class="form-group">
+								<div class="input-group">
+									<select id="br_end_time" class="form-control">
+										<option value="select">--Select--</option>
+										<option value="07:45">07:45</option>
+										<option value="08:00">08:00</option>
+										<option value="08:15">08:15</option>
+										<option value="08:45">08:45</option>
+										<option value="09:00">09:00</option>
+										<option value="09:15">09:15</option>
+										<option value="09:30">09:30</option>
+										<option value="09:45">09:45</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" >
+					<label>complementary</label>
+					<input type="checkbox" id="complementary_break">
+					<button type="submit" id="save_br_time" class="btn btn-primary">
+						Add
+					</button>
+					<button type="button" id="delete_br_time" class="btn btn-primary" onclick="brDeleteValidation()">
+						Delete
+					</button>
+				</div>
+			</form>
+			</div>
+			<!--Lunch -->
+			<div class="box-body">
+				<form id="lunch-timing" method="post">
+				<label>Lunch Timing</label>
+				<input type="hidden" id="lunch_schedulerId">
+				<div class="row">
+					<div class="col-xs-5">
+						<div class="bootstrap-timepicker">
+							<div class="form-group">
+								<div class="input-group">
+									<select id="lu_start_time" class="form-control">
+										<option value="select">--Select--</option>
+										<option value="12:30">12:30</option>
+										<option value="12:45">12:45</option>
+										<option value="13:00">13:00</option>
+										<option value="13:15">13:15</option>
+										<option value="13:30">13:30</option>
+										<option value="13:45">13:45</option>
+										<option value="14:00">14:00</option>
+										<option value="14:15">14:15</option>
+										<option value="14:30">14:30</option>
+										<option value="14:45">14:45</option>
+										<option value="15:00">15:00</option>
+										<option value="15:15">15:15</option>
+										<option value="15:30">15:30</option>
+										
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-5">
+						<div class="bootstrap-timepicker">
+							<div class="form-group">
+								<div class="input-group">
+									<select id="lu_end_time" class="form-control">
+										<option value="select">--Select--</option>
+										<option value="12:15">12:15</option>
+										<option value="12:30">12:30</option>
+										<option value="12:45">12:45</option>
+										<option value="13:00">13:00</option>
+										<option value="13:15">13:15</option>
+										<option value="13:30">13:30</option>
+										<option value="13:45">13:45</option>
+										<option value="14:00">14:00</option>
+										<option value="14:15">14:15</option>
+										<option value="14:30">14:30</option>
+										<option value="14:45">14:45</option>
+										<option value="15:00">15:00</option>
+										<option value="15:15">15:15</option>
+										<option value="15:30">15:30</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>complementary</label>
+					<input type="checkbox" id="complementary_lunch">
+					<button type="submit" id="save_lunch_time" class="btn btn-primary">
+						Add
+					</button>
+					<button type="button" id="delete_lunch_time" class="btn btn-primary" onclick="lunchDeleteValidation()">
+						Delete
+					</button>
+				</div>
+				</form>
+			</div>
+			<!--Dinner-->
+			<div class="box-body">
+				<form id="dinner-timing" method="post">
+				<label>Dinner Timing</label>
+				<input type="hidden" id="dinner_schedulerId">
+				<div class="row">
+					<div class="col-xs-5">
+						<div class="bootstrap-timepicker">
+							<div class="form-group">
+								<div class="input-group">
+									<select id="dinn_start_time" class="form-control">
+										<option value="select">--Select--</option>
+										<option value="19:30">19:30</option>
+										<option value="19:45">19:45</option>
+										<option value="20:00">20:00</option>
+										<option value="20:15">20:15</option>
+										<option value="20:30">20:30</option>
+										<option value="20:45">20:45</option>
+										<option value="21:00">21:00</option>
+										<option value="21:15">21:15</option>
+										<option value="21:30">21:30</option>
+										<option value="21:45">21:45</option>
+										<option value="22:00">22:00</option>
+										<option value="22:15">22:15</option>
+										<option value="22:30">22:30</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-5">
+						<div class="bootstrap-timepicker">
+							<div class="form-group">
+								<div class="input-group">
+									<select id="dinn_end_time" class="form-control">
+										<option value="select">--Select--</option>
+										<option value="19:30">19:30</option>
+										<option value="19:45">19:45</option>
+										<option value="20:00">20:00</option>
+										<option value="20:15">20:15</option>
+										<option value="20:30">20:30</option>
+										<option value="20:45">20:45</option>
+										<option value="21:00">21:00</option>
+										<option value="21:15">21:15</option>
+										<option value="21:30">21:30</option>
+										<option value="21:45">21:45</option>
+										<option value="22:00">22:00</option>
+										<option value="22:15">22:15</option>
+										<option value="22:30">22:30</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>complementary</label>
+					<input type="checkbox" id="complementary_dinn">
+					<button type="submit" id="save_dinner_time" class="btn btn-primary">
+						Add
+					</button>
+					<button type="button" id="delete_dinner_time" class="btn btn-primary" onclick="dinnerDeleteValidation()">
+						Delete
+					</button>
+				</div>
+				</form>
+			</div>
+			<!--End Dinner-->
+		</div>
+	</div>
+
+</div>
+
+<script>
+	toastr.options = {
+		"closeButton" : true,
+		"debug" : false,
+		"newestOnTop" : false,
+		"progressBar" : false,
+		"positionClass" : "toast-bottom-right",
+		"preventDuplicates" : false,
+		"onclick" : null,
+		"showDuration" : "300",
+		"hideDuration" : "1000",
+		"timeOut" : "2000",
+		"extendedTimeOut" : "1000",
+		"showEasing" : "swing",
+		"hideEasing" : "linear",
+		"showMethod" : "fadeIn",
+		"hideMethod" : "fadeOut"
+	};
+
+	$('#sign_out_link').click(function() {
+		document.getElementById("signout-dropdown-menu").style.display = "block";
+		$('.dropdown-toggle').dropdown();
+	});
+
+	$(document).click(function() {
+		$("#signout-dropdown-menu").hide();
+	});
+
+	$("#signout-dropdown-menu").click(function(e) {
+		e.stopPropagation();
+	});
+
+	$('#update-hotel-desc').validate({
+		errorElement : 'span',
+		rules : {
+			hotelDesc : {
+				required : true,
+				noSpace : true
+			}
+		},
+		messages : {
+			hotelDesc : {
+				required : "Required !"
+			}
+		},
+		submitHandler : function(form) {
+			updateDesc();
+		}
+	});
+	
+	$('#breakfast-timing').validate({
+		errorElement : 'span',
+		rules : {
+			br_start_time : {
+				required : true,
+				noSpace : true
+			},
+			br_end_time : {
+				required : true,
+				noSpace : true
+			}
+		},
+		messages : {
+			br_start_time : {
+				required : "Required !"
+			},
+			br_end_time : {
+				required : "Required !"
+			}
+		},
+		submitHandler : function(form) {
+			var breakfast=validateBreakfast();
+			if(breakfast){
+			addBreakfastTimeSchedule();
+			}
+		}
+	});
+	
+	$('#lunch-timing').validate({
+		errorElement : 'span',
+		rules : {
+			lu_start_time : {
+				required : true,
+				noSpace : true
+			},
+			lu_end_time : {
+				required : true,
+				noSpace : true
+			}
+		},
+		messages : {
+			lu_start_time : {
+				required : "Required !"
+			},
+			lu_end_time : {
+				required : "Required !"
+			}
+		},
+		submitHandler : function(form) {
+			var lunch =validateLunch();
+			if(lunch){
+			addLunchTimeSchedule();
+			}
+		}
+	});
+	
+	$('#dinner-timing').validate({
+		errorElement : 'span',
+		rules : {
+			dinn_start_time : {
+				required : true,
+				noSpace : true
+			},
+			dinn_end_time : {
+				required : true,
+				noSpace : true
+			}
+		},
+		messages : {
+			dinn_start_time : {
+				required : "Required !"
+			},
+			dinn_end_time : {
+				required : "Required !"
+			}
+		},
+		submitHandler : function(form) {
+			var dinner=validateDinner();
+			if(dinner){
+			addDinnerTimeSchedule();
+			}
+		}
+	});
+	
+</script>
+
+<script>
+	//Initialize Select2 Elements
+	getHotelDetails();
+	$(".select2").select2();
+	//Timepicker
+	$(".timepicker").timepicker({
+		showInputs : false,
+		defaultTime : ''
+	});
+	getTimeScheduler(); 
+</script>

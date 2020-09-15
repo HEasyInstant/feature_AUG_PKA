@@ -1,0 +1,457 @@
+<script src="admin/assets/scripts/guest.js"></script>
+<div onload="loadCorporateIfExist();">
+    <!-- Content Header (Page header) -->
+    <section class="content-header"><br/> <br/>
+
+        <h1>
+            Add Guest
+            <!--<small>preview of simple tables</small>-->
+        </h1> <br/>
+
+    </section>
+
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 id="guest-form-title" class="box-title">Add Guest</h3>
+            </div>
+            <div class="box-body">
+                <form id="add-guest-form" method="post">
+
+                    <div class="form-group">
+                        <label>Guest Name*</label>
+                        <input type="text" class="form-control" name="guestName" id="guestName" autocomplete="off"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Room No*</label>
+                        <!-- <input type="text" class="form-control" name="roomNo" id="roomNo"> -->
+                        <select name="roomNo" id="roomNo" class="form-control">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile No</label>
+                        <input type="tel" class="form-control" name="guestMob" id="guestMob"  maxlength="14" autocomplete="off" onkeyup="phonenumber()"/>
+                    </div>
+
+                    <!-- Date and time range -->
+                    <div class="form-group">
+                        <label>Check-In & Check-Out Date:*</label>
+
+                        <div class="input-group" id="checkout_id">
+                            <div class="input-group-addon">
+                                <i class="fa fa-clock-o" id="checkout_clock"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" readonly="readonly" id="checkOut"
+                                   name="checkOut">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="gender" id="male" value="male" class="flat-red" checked>
+                            Male </label>
+                        <label>
+                            <input type="radio" name="gender" id="female" value="female" class="flat-red">
+                            Female </label>
+                    </div>
+                    <div style="display: none" id="corporatePanelId">
+                            <div class="form-group">
+                                <label>Is Corporate Guest?</label>
+                                <label>
+                                    <input type="radio" name="isCorporate" id="isCorporate" value="false" class="flat-red" checked>
+                                    No </label>
+                                <label>
+                                    <input type="radio" name="isCorporate" id="isCorporate" value="true" class="flat-red">
+                                    Yes </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="staffDept">Corporate Belongs To</label>
+                                <select name="corporateName" id="corporateName" class="form-control" disabled>
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                    </div>
+
+                    <div class="box-footer">
+
+                        <input type="hidden" id="baseurl" name="baseurl" value="/">
+                        <button type="submit" id="saveGuest" class="btn btn-primary">
+                            Add
+                        </button>
+                    </div>
+                </form>
+				<form id="update-guest-form" method="post" style="display:none">
+                    <div class="form-group">
+                        <label>Guest Name*</label>
+                        <input type="text" class="form-control" name="editGuestName" id="editGuestName" autocomplete="off"/>
+                    </div>
+
+					<div class="form-group">
+                    	<input type="hidden" class="form-control" name="guestCode" id="guestCode">
+                        <label>Room No*</label>
+                        <!-- <input type="text" class="form-control" name="editRoomNo" id="editRoomNo"> -->
+                        <select name="editRoomNo" id="editRoomNo" class="form-control">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mobile No</label>
+                        <input type="tel" class="form-control" name="editGuestMob" id="editGuestMob" maxlength="14"
+                               pattern="[0-9]{14}" autocomplete="off"/>
+                    </div>
+
+                    <!-- Date and time range -->
+                    <div class="form-group">
+                        <label>Check-In & Check-Out Date:*</label>
+
+                        <div class="input-group" id="checkoutedit_id">
+                            <div class="input-group-addon">
+                                <i class="fa fa-clock-o"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" readonly="readonly" id="editCheckOut"
+                                   name="editCheckOut">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="editGender" id="editMale" value="male" class="flat-red" checked>
+                            Male </label>
+                        <label>
+                            <input type="radio" name="editGender" id="editFemale" value="female" class="flat-red">
+                            Female </label>
+                    </div>
+                    <div style="display: none" id="corporatePanelIdEdit">
+                            <div class="form-group">
+                                <label>Is Corporate Guest?</label>
+                                <label>
+                                    <input type="radio" name="isCorporateEdit" id="isCorporateEdit" value="false" class="flat-red" checked>
+                                    No </label>
+                                <label>
+                                    <input type="radio" name="isCorporateEdit" id="isCorporateEdit" value="true" class="flat-red">
+                                    Yes </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="staffDept">Corporate Belongs To</label>
+                                <select name="corporateNameEdit" id="corporateNameEdit" class="form-control">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                    </div>
+                    
+
+                    <div class="box-footer">
+
+                        <input type="hidden" id="baseurl" name="baseurl" value="/">
+						<button type="submit" id="updateGuest" class="btn btn-primary">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box-body -->
+        </div>
+
+        <!-- /.box -->
+    </div>
+    <!-- jQuery 2.2.0 -->
+
+    <div class="col-md-6">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Guest List</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" id="guest-data-table">
+                <table id="example2" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Guest Name</th>
+                        <th>Room No</th>
+                        <th>Guest Code</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+
+
+        <!-- /.box -->
+    </div>
+</div>
+
+<script>
+    //$(function () {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+       // loadft();
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+        //Datemask dd/mm/yyyy
+        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        //Datemask2 mm/dd/yyyy
+        $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+        //Money Euro
+        $("[data-mask]"
+			).inputmask();
+
+
+        //Date range picker
+        $('#checkOut').daterangepicker();
+        //Date range picker with time picker
+        $('#checkOut').daterangepicker({
+			timePicker: true,
+			timePickerIncrement: 30,
+			format: 'MM/DD/YYYY h:mm A'
+
+        });
+        
+        $('input[type=radio][name=isCorporate]').change(function() {
+            if (this.value == 'true') {
+                $(document.getElementById('corporateName')).removeAttr('disabled');
+            }else {
+                $("#corporateName option:contains('Select')").prop('selected', true);
+                $(document.getElementById('corporateName')).attr({
+                    'disabled': 'disabled'
+                });
+            }
+        });
+
+        $('input[type=radio][name=isCorporateEdit]').change(function() {
+            if (this.value == 'true') {
+                $(document.getElementById('corporateNameEdit')).removeAttr('disabled');
+            }else {
+                $("#corporateNameEdit option:contains('Select')").prop('selected', true);
+                $(document.getElementById('corporateNameEdit')).attr({
+                    'disabled': 'disabled'
+                });
+            }
+        });
+
+    $('#checkout_clock').click(function(event){
+      event.preventDefault();
+      $('#checkOut').click();
+
+  });
+
+
+		//Date range picker for edit case
+        $('#editCheckOut').daterangepicker();
+        //Date range picker with time picker
+        $('#editCheckOut').daterangepicker({
+			timePicker: false,
+			timePickerIncrement: 30,
+			format: 'MM/DD/YYYY h:mm A'
+
+		});
+
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+                {
+                   ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                }
+        );
+
+        //Date picker
+        $('#datepicker').datepicker({
+            autoclose: true
+        });
+
+
+        //Colorpicker
+        $(".my-colorpicker1").colorpicker();
+        //color picker with addon
+        $(".my-colorpicker2").colorpicker();
+
+        //Timepicker
+        $(".timepicker").timepicker({
+            showInputs: false
+        });
+
+        $('#sign_out_link').click(function () {
+            document.getElementById("signout-dropdown-menu").style.display = "block";
+            $('.dropdown-toggle').dropdown();
+        });
+
+        $(document).click(function () {
+            $("#signout-dropdown-menu").hide();
+        });
+
+        $("#signout-dropdown-menu").click(function (e) {
+            e.stopPropagation();
+        });
+
+        $('#add-guest-form').validate({
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                switch (element.attr("name")) {
+                    case 'checkOut':
+                        error.insertAfter($("#checkout_id"));
+                        break;
+                    default:
+                        error.insertAfter(element);
+                }
+            },
+            rules: {
+                roomNo: {
+                    required: true,
+                    maxlength: 20,
+                    noSpace: true,
+                    alphanumeric: true
+                },
+                checkOut:{
+                	required: true,
+                	noSpace: true
+                },
+                guestName: {
+                    required: true,
+                    minlength: 3,
+					          maxlength: 25,
+                    noSpace: true,
+                    alphanumericWithSpace: true
+                },
+                guestMob: {
+                    /*required:true,*/
+					/*minlength: 10,
+					maxlength: 10,
+                    isIndianMobile: true,
+                    noSpace: true*/
+                }
+            },
+            messages: {
+                roomNo: {
+                    required: "Required !",
+                    maxlength: "Room No too long!"
+                },
+                guestName: {
+                    required: "Required !",
+                    minlength: "Guest Name too short please enter atleast 3 letters",
+					maxlength: "Guest Name too long!"
+                },
+                checkOut:{
+                	required: "Required !"
+                },
+                guestMob: {
+                    /*required: "Required !",*/
+                    /*minlength: 'Minimum 10 digits only',
+					maxlength: 'Maximum 10 digits only',
+					isIndianMobile: 'First Number should be 9, 8 or 7 of mobile'*/
+                }
+            },
+            submitHandler: function (form) {
+            	$("#saveGuest").attr("disabled", true);
+				guestAdd();
+				$("#saveGuest").attr("disabled", false);
+            }
+        });
+		$('#update-guest-form').validate({
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                switch (element.attr("name")) {
+                    case 'editcheckOut':
+                        error.insertAfter($("#checkoutedit_id"));
+                        break;
+                    default:
+                        error.insertAfter(element);
+                }
+            },
+            rules: {
+                editRoomNo: {
+                    required: true,
+                    maxlength: 6,
+					noSpace: true
+                },
+                editCheckOut:{
+                	required: true,
+					noSpace: true
+                },
+                editGuestName: {
+                    required: true,
+                    minlength: 3,
+					maxlength: 25,
+					noSpace: true
+                },
+                editGuestMob: {
+					/*required: "Required !",*/
+                    /*minlength: 10,
+					maxlength: 10,
+					isIndianMobile: true,
+					noSpace: true*/
+                }
+            },
+            messages: {
+                editRoomNo: {
+                    required: "Required !",
+                    maxlength: "Room No too long!"
+                },
+                editGuestName: {
+                    required: "Required !",
+					minlength: "Guest Name too short please enter atleast 3 letters",
+                    maxlength: "Guest Name too long!"
+                },
+                editCheckOut:{
+                	required: "Required !"
+                },
+                editGuestMob: {
+                    /*required: "Required !",*/
+                    /*minlength: 'Minimum 10 digits only',
+					maxlength: 'Maximum 10 digits only',
+					isIndianMobile: 'First Number should be 9, 8 or 7 of mobile'*/
+				}
+			},
+			submitHandler: function (form) {
+				guestUpdate();
+			}
+		});
+    //});
+</script>
+
+<script>
+   // function loadft() {
+   updateGuestList();
+   // }
+
+</script>
+<script src="admin/assets/scripts/guest.js"></script>

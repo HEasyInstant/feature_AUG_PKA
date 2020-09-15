@@ -1,0 +1,715 @@
+<script src="admin/assets/scripts/HotelService.js"></script>
+<div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header"><br/> <br/>
+
+        <h1 id="serviceTitle"></h1>
+        <br/>
+
+    </section>
+    <div id="add_service_hotel" style="display: none">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 id="service_title" class="box-title">Add Services</h3>
+                </div>
+                <div class="box-body">
+                    <form id="add-service" method="post">
+                        <div class="form-group">
+                            <label for="staffDept">Depatment:*</label>
+                            <select name="department" id="department" class="form-control">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Sevice Name:*</label>
+                            <input type="text" class="form-control" placeholder="Enter Service Name" name="serviceName"
+                                   id="serviceName">
+                        </div>
+                        <div class="form-group">
+                            <label>Service Description:*</label>
+                            <input type="text" class="form-control" placeholder="Enter Service Description"
+                                   name="serviceDesc" id="serviceDesc">
+                        </div>
+                        <div class="form-group">
+                            <label>CGST:</label>
+                            <input type="number" class="form-control" placeholder="Enter CGST"
+                                   name="CGST" id="CGST">
+                        </div>
+
+                        <div class="form-group">
+                            <label>SGST:</label>
+                            <input type="number" class="form-control" placeholder="Enter SGST"
+                                   name="SGST" id="SGST">
+                        </div>
+                        <div class="form-group">
+                            <label>Other Tax:</label>
+                            <input type="number" class="form-control" placeholder="Enter SGST"
+                                   name="otherTax" id="otherTax">
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label>
+                                    Is Deliverable
+                                    <input type="checkbox" class="flat-red" name="isDeliverable" id="isDeliverable">
+                                </label>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <div class="form-group">
+                            <label>Time Range</label>
+
+							<div class="input-group bootstrap-timepicker timepicker">
+								<input id="startTime" type="text" class="form-control input-small">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+							</div>
+							<div class="input-group bootstrap-timepicker timepicker">
+								<input id="endTime" type="text" class="form-control input-small">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+							</div>
+
+                        <!-- <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <input type="time" class="form-control" name="startTime" id="startTime"
+                                       autocomplete="off"/>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <input type="time" class="form-control" name="endTime" id="endTime" autocomplete="off"/>
+                            </div> -->
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                        <div class="form-group">
+                            <button type="button" style="margin-top: 10px;" data-toggle="modal" data-target="#myModal" id="select_icon">
+                                Select Icon
+                            </button>
+                            <div id="selectedImage"></div>
+                            <input type="hidden" id="service_thumbnail" name="service_thumbnail">
+                        </div>
+
+                        <div class="form-group">
+							<button type="button" style="margin-top: 10px;" data-toggle="modal" data-target="#bkimgs" id="select_bkground">Background
+							</button>
+							<div id="bkg_selectedImage" ></div>
+							<input type="hidden"  id="bkimgs_thumbnail" name="bkimgs_thumbnail">
+						</div>
+
+                        <div class="box-footer">
+                            <input type="hidden" id="baseurl" name="baseurl" value="/">
+                            <button type="submit" id="addService" class="btn btn-primary">
+                                Add
+                            </button>
+                        </div>
+                    </form>
+					<form id="update-service" method="post" style="display:none">
+                        <div class="form-group">
+                            <label for="staffDept">Depatment:*</label>
+                            <select name="editDepartment" id="editDepartment" class="form-control">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Sevice Name:*</label>
+                            <input type="text" class="form-control" placeholder="Enter Service Name" name="editServiceName"
+                                   id="editServiceName">
+                        </div>
+                        <div class="form-group">
+                            <label>Service Description:*</label>
+                            <input type="text" class="form-control" placeholder="Enter Service Description"
+                                   name="editServiceDesc" id="editServiceDesc">
+                        </div>
+
+                        <div class="form-group">
+                            <label>CGST:</label>
+                            <input type="number" class="form-control" placeholder="Enter CGST"
+                                   name="editCGST" id="editCGST">
+                        </div>
+
+                        <div class="form-group">
+                            <label>SGST:</label>
+                            <input type="number" class="form-control" placeholder="Enter SGST"
+                                   name="editSGST" id="editSGST">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Other Tax:</label>
+                            <input type="number" class="form-control" placeholder="Enter SGST"
+                                   name="editOtherTax" id="editOtherTax">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label>
+                                    Is Deliverable
+                                    <input type="checkbox" class="flat-red" name="editIsDeliverable" id="editIsDeliverable">
+                                </label>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <div class="form-group">
+                            <label>Time Range</label>
+							<div class="input-group bootstrap-timepicker timepicker">
+								<input id="editStartTime" type="text" class="form-control input-small">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+							</div>
+							<div class="input-group bootstrap-timepicker timepicker">
+								<input id="editEndTime" type="text" class="form-control input-small">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+							</div>
+                      <!--  <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <input type="time" class="form-control" name="editStartTime" id="editStartTime"
+                                       autocomplete="off"/>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <input type="time" class="form-control" name="editEndTime" id="editEndTime" autocomplete="off"/>
+                            </div> -->
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                        <div class="form-group">
+                            <button type="button" style="margin-top: 10px;" data-toggle="modal" data-target="#editMyModal" id="edit_select_icon">
+                                Select Icon
+                            </button>
+                            <div id="editSelectedImage"></div>
+                            <input type="hidden" id="edit_service_thumbnail" name="edit_service_thumbnail">
+                        </div>
+
+                        <div class="form-group">
+							<button type="button" style="margin-top: 10px;" data-toggle="modal" data-target="#editbkimgs" id="select_bkground">Background
+							</button>
+							<div id="edit_bkg_selectedImage"></div>
+							<input type="hidden"  id="edit_bkimgs_thumbnail" name="edit_bkimgs_thumbnail">
+						</div>
+
+                        <div class="box-footer">
+                            <input type="hidden" id="baseurl" name="baseurl" value="/">
+                            <button type="submit" id="updateService" class="btn btn-primary">
+                                Update
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Choose Service Icon</h4>
+                            </div>
+                            <div class="modal-body" id="vidualContent_div">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="cancel_vc_modal" class="btn btn-default" data-dismiss="modal">
+                                    Cancel
+                                </button>
+                                <button type="button" id="save_vc_modal" class="btn btn-primary" data-dismiss="modal">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+				<div class="modal fade" id="editMyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Choose Service Icon</h4>
+                            </div>
+                            <div class="modal-body" id="edit_vidualContent_div">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="edit_cancel_vc_modal" class="btn btn-default" data-dismiss="modal">
+                                    Cancel
+                                </button>
+                                <button type="button" id="edit_save_vc_modal" class="btn btn-primary" data-dismiss="modal">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+				<div class="modal fade" id="bkimgs" tabindex="-1" role="dialog" aria-labelledby="bkimgsLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="bkimgslLabel">Choose Background Image</h4>
+							</div>
+							<div class="modal-body" id="bkimgs_div">
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="bkimgs_cancel_vc_modal" class="btn btn-default" data-dismiss="modal">Cancel</button>
+								<button type="button" id="bkimgs_save_vc_modal" class="btn btn-primary" data-dismiss="modal">Save</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade" id="editbkimgs" tabindex="-1" role="dialog" aria-labelledby="bkimgsLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="bkimgslLabel">Choose Background Image</h4>
+							</div>
+							<div class="modal-body" id="eidt_bkimgs_div">
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="edit_bkimgs_cancel_vc_modal" class="btn btn-default" data-dismiss="modal">Cancel</button>
+								<button type="button" id="edit_bkimgs_save_vc_modal" class="btn btn-primary" data-dismiss="modal">Save</button>
+							</div>
+						</div>
+					</div>
+				</div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- jQuery 2.2.0 -->
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Services List</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body" id="service-data-table">
+                    <table id="display_services_table" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Service Name</th>
+                            <th>Timing</th>
+                        </tr>
+                        </thead>
+
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+
+    <div id="add_subitem" style="display: none">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 id="item-form-title" class="box-title">Add Items</h3>
+                </div>
+                <div class="box-body">
+                    <form id="add-item" method="post">
+						<div class="form-group">
+							<label>Item Name</label>
+							<input type="hidden" class="form-control" placeholder="Enter Service Id" name="serviceId" id="serviceId">
+							<input type="text" class="form-control" placeholder="Enter Item Name" name="itemName" id="itemName">
+						</div>
+						<div class="form-group">
+							<label>Item Description</label>
+							<input type="text" class="form-control" placeholder="Enter Item Description" name="itemDesc" id="itemDesc">
+						</div>
+						<div class="form-group">
+							<label>Item Quantity</label>
+							<input type="text" class="form-control" placeholder="Enter Item Quantity" name="itemQuantity" id="itemQuantity">
+						</div>
+						<div class="form-group">
+							<label>Item Unit</label>
+							<input type="text" class="form-control" placeholder="Enter Item Unit" name="itemUnit" id="itemUnit">
+						</div>
+						<!-- dynamic rows code starts here -->
+						<div class="form-group">
+						<div class="row clearfix">
+						<div class="col-md-12 column">
+								<table class="table table-bordered table-hover" id="tab_logic">
+									<thead>
+										<tr >
+											<th class="text-center">#</th>
+											<th class="text-center">Sub Item Name</th>
+											<th class="text-center">Quantity</th>
+											<th class="text-center">Price</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr id='addr0'>
+											<td>1</td>
+											<td><input type="text" name='subItemName0' id='subItemName0'  placeholder='Enter Sub Item Name' class="subItemNameCls"/></td>
+											<td><input type="text" name='subItemQuantity0' id='subItemQuantity0' placeholder='Enter Sub Item Quantity' class="form-control"/></td>
+											<td><input type="text" name='subItemPrice0' id='subItemPrice0' placeholder='Enter Sub Item Price' class="form-control"/></td>
+										</tr>
+
+									</tbody>
+								</table>
+								<a id='add_row' class="btn btn-default pull-left">Add Row</a>
+								<a id="delete_row" class="pull-right btn btn-default">Delete Row</a>
+							</div>
+						</div>
+						</div>
+						<!-- dynamic rows code ends here -->
+
+						<!-- /.form group -->
+						<div class="box-footer">
+							<input type="hidden" id="baseurl" name="baseurl" value="/">
+							<button type="submit" id="addSubItem" class="btn btn-primary">
+								Add
+							</button>
+							<!--<button type="button" id="viewAllSubItem" class="btn btn-primary pull-right btn btn-default" onclick="viewAllSubitems();">
+								View All
+							</button>-->
+						</div>
+					</form>
+					<form id="update-item" method="post" style="display:none">
+						<div class="form-group">
+							<label>Item Name</label>
+							<input type="hidden" class="form-control" placeholder="Enter Service Id" name="editServiceId" id="editServiceId">
+							<input type="hidden" class="form-control" placeholder="Enter Service Item Id" name="editServiceItemId" id="editServiceItemId">
+							<input type="text" class="form-control" placeholder="Enter Item Name" name="editItemName" id="editItemName">
+						</div>
+						<div class="form-group">
+							<label>Item Description</label>
+							<input type="text" class="form-control" placeholder="Enter Item Description" name="editItemDesc" id="editItemDesc">
+						</div>
+						<div class="form-group">
+							<label>Item Quantity</label>
+							<input type="text" class="form-control" placeholder="Enter Item Quantity" name="editItemQuantity" id="editItemQuantity">
+						</div>
+						<div class="form-group">
+							<label>Item Unit</label>
+							<input type="text" class="form-control" placeholder="Enter Item Unit" name="editItemUnit" id="editItemUnit">
+						</div>
+						<!-- dynamic rows code starts here -->
+						<div class="form-group">
+						<div class="row clearfix">
+							<div class="col-md-12 column" id="edit_tab_logic_div"></div>
+							<div class="col-md-12 column">
+								<a id='edit_add_row' class="btn btn-default pull-left">Add Row</a>
+								<a id="edit_delete_row" class="pull-right btn btn-default">Delete Row</a>
+							</div>
+						</div>
+						</div>
+						<!-- dynamic rows code ends here -->
+
+						<!-- /.form group -->
+						<div class="box-footer">
+							<input type="hidden" id="baseurl" name="baseurl" value="/">
+							<button type="submit" id="updateSubItem" class="btn btn-primary">
+								Update
+							</button>
+							<!--<button type="button" id="viewAllSubItem" class="btn btn-primary pull-right btn btn-default" onclick="viewAllSubitems();">
+								View All
+							</button>-->
+						</div>
+					</form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- jQuery 2.2.0 -->
+        <div id="display_fullitem_div" class="col-md-12" style="display: none">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Service Item List</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body" id="fullitem-data-table">
+                    <table id="display_fullitem_table" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Service Name</th>
+                            <th>Service Desc</th>
+                            <th>Is Deliverable</th>
+                            <th>Timing</th>
+                            <th>Thumnail</th>
+                            <th>Item Name</th>
+                            <th>Item Desc</th>
+                            <th>Item Quantity</th>
+                            <th>Item Unit</th>
+                            <th>Sub Item Name</th>
+                            <th>Sub Item Quantity</th>
+                            <th>Sub Item Price</th>
+                        </tr>
+                        </thead>
+
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+
+    <div id="view_item" style="display: block">
+        <div id="display_item_div" class="col-md-12" style="display: none">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Item List</h3>
+                </div>
+                <div class="box-body" id="item-data-table">
+                    <!-- <table id="display_item_table" class="table table-bordered table-striped">
+
+                    </table> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="view_subitem" style="display: block">
+        <div id="display_subitem_div" class="col-md-12" style="display: none">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Sub Item List</h3>
+                </div>
+                <div class="box-body" id="subitem-data-table">
+                    <table id="display_subitem_table" class="table table-bordered table-striped">
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.col -->
+
+    <div id="service_grid" style="display: block; margin-left: 1%">
+        <!-- small box -->
+        <div class="row">
+            <div id="list">
+                <div class="col-lg-3 col-xs-6">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+	.vcenter{
+		position: relative;
+		left: 29px;
+		bottom: 21px;
+		display: table-cell;
+	}
+</style>
+<script type="text/javascript">
+    //(function ($) {
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "2000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+    $("#cancel_vc_modal").click(function () {
+        $('div[id^="selectedImage"]').html('');
+        $("li[id^='vc_']").css('border', "1px solid #ddd");
+        $('#service_thumbnail').val('');
+    });
+    $("#bkimgs_cancel_vc_modal").click(function(){
+    	$('div[id^="bkg_selectedImage"]').html('');
+    	$("li[id^='bkg_']" ).css('border', "1px solid #ddd");
+    	$('#bkimgs_thumbnail').val('');
+    });
+	$("#edit_cancel_vc_modal").click(function () {
+        $('div[id^="editSelectedImage"]').html('');
+        $("li[id^='editvc_']").css('border', "1px solid #ddd");
+        $('#edit_service_thumbnail').val('');
+    });
+    $("#edit_bkimgs_cancel_vc_modal").click(function(){
+    	$('div[id^="edit_bkg_selectedImage"]').html('');
+    	$("li[id^='editbkg_']" ).css('border', "1px solid #ddd");
+    	$('#edit_bkimgs_thumbnail').val('');
+    });
+    $("#bkimgs_save_vc_modal").click(function(){
+    	$('#bkimgs_thumbnail-error').hide();
+    });
+	$("#save_vc_modal").click(function(){
+		$('#service_thumbnail-error').hide();
+    });
+    $('#add-service').validate({
+        errorElement: 'span',
+        ignore: [],
+        errorPlacement: function(error, element) {
+            switch (element.attr("name")) {
+                case 'service_thumbnail':
+                    error.insertAfter($("#select_icon"));
+                    break;
+                case 'bkimgs_thumbnail':
+                    error.insertAfter($("#select_bkground"));
+                    break;
+                default:
+                    error.insertAfter(element);
+            }
+        },
+        rules: {
+            department: "required",
+            serviceName: {
+            	required: true,
+            	noSpace: true,
+              alphanumericWithSpace: true
+            },
+            serviceDesc: {
+            	required: true,
+            	noSpace: true,
+              alphanumericWithSpace: true
+            },
+            service_thumbnail:"required",
+            bkimgs_thumbnail:"required",
+            SGST: {
+                number: true
+            },
+            CGST: {
+                number:true
+            },
+            otherTax: {
+                number:true
+            }
+
+        },
+        messages: {
+            department: "Required !",
+            serviceName: {
+                required: "Required !"
+            },
+            serviceDesc: {
+                required: "Required !"
+            },
+            service_thumbnail:"Required !",
+            bkimgs_thumbnail:"Required !",
+            SGST:"Number required!",
+            CGST:"Number required !",
+            otherTax:"Number required !"
+        },
+        submitHandler: function (form) {
+            addServices();
+        }
+    });
+	$('#update-service').validate({
+        errorElement: 'span',
+        ignore: [],
+        errorPlacement: function(error, element) {
+            switch (element.attr("name")) {
+                case 'service_thumbnail':
+                    error.insertAfter($("#edit_select_icon"));
+                    break;
+                case 'bkimgs_thumbnail':
+                    error.insertAfter($("#select_bkground"));
+                    break;
+                default:
+                    error.insertAfter(element);
+            }
+        },
+        rules: {
+            editDepartment: "required",
+            editServiceName: {
+            	required: true,
+            	noSpace: true,
+              alphanumericWithSpace: true
+            },
+            editServiceDesc: {
+            	required: true,
+            	noSpace: true,
+              alphanumericWithSpace: true
+            },
+            service_thumbnail:"required",
+            bkimgs_thumbnail:"required",
+            editSGST: {
+                number: true
+            },
+            editCGST: {
+                number:true
+            },
+            editOtherTax: {
+                number:true
+            }
+        },
+        messages: {
+            editDepartment: {
+                required: "Required !"
+            },
+            editServiceName: {
+              required: "Required !"
+            },
+            editServiceDesc: {
+              required: "Required !"
+            },
+            service_thumbnail:"Required !",
+            bkimgs_thumbnail:"Required !",
+            editSGST:"Number required!",
+            editCGST:"Number required !",
+            editOtherTax:"Number required !"
+        },
+        submitHandler: function (form) {
+			updateServices();
+        }
+    });
+    $('#add-item').validate({
+		errorElement: 'span',
+		rules: {
+			itemName: {
+          alphanumericWithSpace: true,
+          required: true,
+          noSpace:true
+      },
+      subItemName0:{
+        required: true,
+        alphanumericWithSpace: true,
+        noSpace:true
+      },
+      itemDesc: {
+          alphanumericWithSpace: true
+      }
+		},
+		messages: {
+			itemName: {
+        required:  "Required !"
+      },
+		},
+		submitHandler: function (form) {
+			addSubitems();
+		}
+	});
+	$('#update-item').validate({
+		errorElement: 'span',
+		rules: {
+			editItemName: {
+        required: true,
+        alphanumericWithSpace: true
+      },
+      itemDesc: {
+          alphanumericWithSpace: true
+      }
+		},
+		messages: {
+			editItemName: "Required !",
+		},
+		submitHandler: function (form) {
+			updateSubitems();
+		}
+	});
+    //getHotelDetailsByHotelCodeForServiceGrid();
+    //})(jQuery);
+</script>
+<script src="admin/assets/scripts/HotelService.js"></script>
