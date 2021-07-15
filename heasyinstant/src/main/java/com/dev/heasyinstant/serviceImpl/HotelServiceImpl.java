@@ -22,6 +22,8 @@ public class HotelServiceImpl implements HotelService{
 	public void delteHotel() {
 		// TODO Auto-generated method stub
 		
+		System.out.println("test");
+		
 	}
 	@Override
 	public void updateHotel() {
