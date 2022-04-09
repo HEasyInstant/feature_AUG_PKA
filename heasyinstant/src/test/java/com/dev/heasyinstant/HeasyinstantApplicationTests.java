@@ -1,4 +1,4 @@
-package com.dev.heasyinstant;
+/*package com.dev.heasyinstant;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,4 +10,4 @@ class HeasyinstantApplicationTests {
 	void contextLoads() {
 	}
 
-}
+}*/
